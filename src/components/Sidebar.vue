@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer theme="darkTheme" color="#1C2536" class="px-2" width="280">
+  <v-navigation-drawer theme="darkTheme" color="#1C2536" class="px-2" width="280" style="border: 0">
     <v-list class="pt-4">
       <v-list-item
         prepend-avatar="https://cdn.vuetifyjs.com/images/logos/v-alt.svg"
@@ -48,9 +48,6 @@ const sidebarItem = ref(config.menu);
 </script>
 
 <style lang="scss" scoped>
-:deep(.v-navigation-drawer) {
-  border: none;
-}
 .v-navigation-drawer__content {
   .v-list {
     box-shadow: none !important;

@@ -7,7 +7,7 @@ export default [
       isAuth: true,
       layout: 'default',
       title: 'Posts',
-      icon: 'mdi-post-outline'
+      category: 'Blog'
     }
   },
   {
@@ -18,7 +18,7 @@ export default [
       isAuth: true,
       layout: 'default',
       title: 'Tags',
-      icon: 'mdi-tag-outline'
+      category: 'Blog'
     }
   },
   {
@@ -29,7 +29,7 @@ export default [
       isAuth: true,
       layout: 'default',
       title: 'Categories',
-      icon: 'mdi-archive-outline'
+      category: 'Blog'
     }
   }
 ]

@@ -57,5 +57,7 @@ const Logout = () => {
 </script>
 
 <style lang="scss" scoped>
-
+.v-app-bar {
+  position: sticky !important;
+}
 </style>
