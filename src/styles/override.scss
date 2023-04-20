@@ -1,0 +1,16 @@
+html {
+  overflow: hidden !important;
+
+  .v-tooltip {
+    .v-overlay__content {
+      border-radius: 6px;
+      padding: 2px 8px;
+    }
+  }
+
+  .v-theme--darkTheme {
+    .v-card, .v-list, .v-field--variant-solo {
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 10px 15px !important;
+    }
+  }
+}

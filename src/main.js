@@ -10,6 +10,9 @@ import App from './App.vue'
 // Composables
 import { createApp } from 'vue'
 
+// Styles
+import '@/styles/index.scss'
+
 // Plugins
 import { registerPlugins } from '@/plugins'
 

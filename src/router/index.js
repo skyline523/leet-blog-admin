@@ -1,26 +1,70 @@
-// Composables
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import nProgress from 'nprogress'
+
+import { useUserStore } from '@/store/user'
+import authRoutes from './auth'
+import blogRoutes from './blog'
+
+import 'nprogress/nprogress.css'
+
+nProgress.configure({
+  showSpinner: false
+})
 
 const routes = [
   {
     path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
-    children: [
-      {
-        path: '',
-        name: 'Home',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
-      },
-    ],
+    redirect: '/dashboard'
   },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/dashboard/Dashboard.vue'),
+    meta: {
+      isAuth: true,
+      layout: 'default'
+    }
+  },
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   name: 'Error',
+  //   component: () => import('@/views/errors/NotFound.vue')
+  // },
+  ...authRoutes,
+  ...blogRoutes
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return {
+        top: 0,
+        behavior: 'smooth'
+      }
+    }
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  nProgress.start()
+
+  const userStore = useUserStore()
+  const token = userStore.token
+
+  if (token || to.name === 'Signin') {
+    next()
+  } else {
+    userStore.resetState()
+    next({ name: 'Signin' })
+  }
+})
+
+router.afterEach(() => {
+  nProgress.done()
 })
 
 export default router

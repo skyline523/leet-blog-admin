@@ -2,6 +2,7 @@
 import vue from '@vitejs/plugin-vue'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import AutoImport from 'unplugin-auto-import/vite'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -13,9 +14,11 @@ export default defineConfig({
     vue({
       template: { transformAssetUrls }
     }),
+    vueSetupExtend(),
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
     vuetify({
-      autoImport: true
+      autoImport: true,
+      styles: { configFile: 'src/styles/variables.scss' }
     }),
     AutoImport({
       imports: ['vue', 'vue-router', 'pinia']

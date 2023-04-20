@@ -21,6 +21,7 @@
             rel="noopener noreferrer"
             target="_blank"
             variant="text"
+            elevation="10"
           >
             <v-icon
               icon="mdi-view-dashboard"
@@ -35,7 +36,6 @@
         <v-col cols="auto">
           <v-btn
             color="primary"
-            href="https://next.vuetifyjs.com/introduction/why-vuetify/#feature-guides"
             min-width="228"
             rel="noopener noreferrer"
             size="x-large"
@@ -48,7 +48,7 @@
               start
             />
 
-            Get Started
+            ChangeTheme
           </v-btn>
         </v-col>
 
@@ -75,5 +75,5 @@
 </template>
 
 <script setup>
-  //
+
 </script>

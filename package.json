@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "axios": "^1.3.6",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.23",
+    "pinia-plugin-persist": "^1.0.0",
     "roboto-fontface": "*",
     "vue": "^3.2.38",
     "vue-router": "^4.0.0",
@@ -20,8 +23,10 @@
     "@vitejs/plugin-vue": "^3.0.3",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
+    "sass": "^1.62.0",
     "unplugin-auto-import": "^0.15.3",
     "vite": "^3.1.9",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
     "vite-plugin-vuetify": "^1.0.0-alpha.12"
   }
 }
