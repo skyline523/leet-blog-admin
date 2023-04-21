@@ -12,5 +12,19 @@ html {
     .v-card, .v-list, .v-field--variant-solo {
       box-shadow: rgba(0, 0, 0, 0.24) 0px 10px 15px !important;
     }
+
+    .v-data-table__th {
+      height: 42px !important;
+      border: none !important;
+      background-color: #1C2536 !important;
+    }
+  }
+
+  .v-theme--lightTheme {
+    .v-data-table__th {
+      height: 42px !important;
+      border: none !important;
+      background-color: #F8F9FA !important;
+    }
   }
 }

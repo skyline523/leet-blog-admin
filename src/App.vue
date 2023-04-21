@@ -17,6 +17,7 @@ import ConfigureMenu from '@/components/ConfigureMenu.vue';
 import Snackbar from '@/components/Snackbar.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue'
+import HomeLayout from '@/layouts/HomeLayout.vue';
 import { useConfigureStore } from '@/store/configure';
 
 const configureStore = useConfigureStore()
@@ -29,7 +30,8 @@ const isRouterLoaded = computed(() => {
 
 const layouts = {
   default: DefaultLayout,
-  auth: AuthLayout
+  auth: AuthLayout,
+  home: HomeLayout
 }
 
 const currentLayout = computed(() => {

@@ -22,7 +22,7 @@ const routes = [
     component: () => import('@/views/dashboard/Dashboard.vue'),
     meta: {
       isAuth: true,
-      layout: 'default'
+      layout: 'home'
     }
   },
   // {

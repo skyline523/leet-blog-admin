@@ -1,6 +1,11 @@
 <template>
   <v-app-bar :elevation="0" color="background">
     <template #prepend>
+      <v-tooltip :text="`${menuTooltip} Menu`" location="bottom">
+        <template #activator="{ props }">
+          <v-btn v-bind="props" icon="mdi-menu" @click="handleSetSidebar"></v-btn>
+        </template>
+      </v-tooltip>
       <v-tooltip text="Search" location="bottom">
         <template #activator="{ props }">
           <v-btn v-bind="props" icon="mdi-magnify"></v-btn>
@@ -39,17 +44,30 @@
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 
 import { useUserStore } from '@/store/user';
+import { useConfigureStore } from '@/store/configure'
 
 const userStore = useUserStore();
+const configureStore = useConfigureStore()
+
+const menuTooltip = ref('Hide')
 
 const userInfo = computed(() => userStore.userInfo);
 
 onMounted(() => {
   userStore.afterLoginAction();
 });
+
+const handleSetSidebar = () => {
+  configureStore.sidebarVisible = !configureStore.sidebarVisible
+  if (configureStore.sidebarVisible) {
+    menuTooltip.value = 'Hide'
+  } else {
+    menuTooltip.value = 'Show'
+  }
+}
 
 const Logout = () => {
   userStore.logout();

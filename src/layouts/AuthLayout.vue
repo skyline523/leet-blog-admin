@@ -26,7 +26,7 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 0;
     height: 64px;
     width: 100%;
     margin-left: auto;
@@ -37,13 +37,17 @@
     padding-right: 16px;
   }
   &-main {
+    padding: 42px 0;
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 1;
   }
 }
-
+.v-layout {
+  overflow: auto !important;
+  height: 100vh;
+}
 @media screen and (min-width: 1200px) {
   .layout-header {
     max-width: 1200px

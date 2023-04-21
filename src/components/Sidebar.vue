@@ -1,5 +1,12 @@
 <template>
-  <v-navigation-drawer theme="darkTheme" color="#1C2536" class="px-2" width="280" style="border: 0">
+  <v-navigation-drawer
+    v-model="configureStore.sidebarVisible"
+    theme="darkTheme"
+    color="#1C2536"
+    class="px-2"
+    width="280"
+    style="border: 0"
+  >
     <v-list class="pt-4">
       <v-list-item
         prepend-avatar="https://cdn.vuetifyjs.com/images/logos/v-alt.svg"
@@ -41,8 +48,10 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router'
 
 import config from '@/config';
+import { useConfigureStore } from '@/store/configure'
 
 const route = useRoute()
+const configureStore = useConfigureStore()
 
 const sidebarItem = ref(config.menu);
 </script>

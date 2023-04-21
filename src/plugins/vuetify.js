@@ -10,6 +10,8 @@ import 'vuetify/styles'
 
 // Composables
 import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as labs from 'vuetify/labs/components'
 
 const lightTheme = {
   dark: false,
@@ -23,7 +25,7 @@ const lightTheme = {
     info: '#F8F9FA',
     success: '#0B815A',
     warning: '#B54708',
-    text: '#6C737F'
+    text: '#000000'
   }
 }
 
@@ -45,11 +47,21 @@ const darkTheme = {
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
+  components: {
+    ...components,
+    ...labs
+  },
   theme: {
     defaultTheme: 'lightTheme',
     themes: {
       lightTheme,
       darkTheme
+    }
+  },
+  defaults: {
+    VDataTable: {
+      fixedHeader: true,
+      noDataText: 'Results not found'
     }
   }
 })

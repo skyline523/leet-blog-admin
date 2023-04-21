@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar v-model="visible">
+  <v-snackbar v-model="visible" color="text">
     {{ snackbarStore.content }}
     <template v-slot:actions>
       <v-btn v-if="showClose" :color="color" variant="text" @click="handleClose">
