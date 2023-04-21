@@ -38,7 +38,7 @@
 </template>
 
 <script setup name="CheckboxMenu">
-import { ref, defineProps, defineEmits, toRefs, watch } from 'vue'
+import { ref, defineEmits, toRefs, watch } from 'vue'
 
 const props = defineProps({
   menu: {

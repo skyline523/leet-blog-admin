@@ -30,6 +30,10 @@
       <div class="pa-2">
         <CheckboxMenu :menu="categories" :checked="checkedCategories" @change="handleChecked"/>
         <CheckboxMenu :menu="tags" :checked="checkedTags" @change="handleChecked"/>
+        <v-btn color="primary" elevation="0">
+          <v-icon icon="mdi-plus"></v-icon>
+          Create
+        </v-btn>
       </div>
     </v-card-title>
     <v-card-text class="pa-0">
