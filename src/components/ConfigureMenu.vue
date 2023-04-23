@@ -16,7 +16,6 @@
       temporary
       location="right"
       width="440"
-      :elevation="theme.global.current.value.dark ? 0 : 24"
     >
       <div class="px-6 pt-4 d-flex justify-space-between align-center">
         <div class="text-h6">App Setting</div>

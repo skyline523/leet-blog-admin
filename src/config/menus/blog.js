@@ -5,13 +5,8 @@ export default [
     icon: 'mdi-post-outline'
   },
   {
-    name: 'Tags',
-    link: '/blog/tags',
-    icon: 'mdi-tag-outline'
-  },
-  {
-    name: 'Categories',
-    link: '/blog/categories',
+    name: 'Archive',
+    link: '/blog/archive',
     icon: 'mdi-archive-outline'
   }
 ]

@@ -11,24 +11,13 @@ export default [
     }
   },
   {
-    path: '/blog/tags',
-    name: 'Tag',
-    component: () => import('@/views/blog/Tag.vue'),
+    path: '/blog/archive',
+    name: 'Archive',
+    component: () => import('@/views/blog/Archive.vue'),
     meta: {
       isAuth: true,
       layout: 'default',
-      title: 'Tags',
-      category: 'Blog'
-    }
-  },
-  {
-    path: '/blog/categories',
-    name: 'Category',
-    component: () => import('@/views/blog/Category.vue'),
-    meta: {
-      isAuth: true,
-      layout: 'default',
-      title: 'Categories',
+      title: 'Archive',
       category: 'Blog'
     }
   }

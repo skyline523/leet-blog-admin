@@ -1,39 +1,20 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col
-        v-for="item in dashboardCards"
-        :key="item.name"
-      >
-        <Card :item="item"/>
-      </v-col>
-    </v-row>
-    <v-row style="height: 400px">
-      <v-col class="h-100" cols="12" sm="12" md="12" xl="6">
-        chart
-      </v-col>
-      <v-col class="h-100" cols="12" sm="6" md="6" xl="3">
-        <CategoryList :items="tags" />
-      </v-col>
-      <v-col class="h-100" cols="12" sm="6" md="6" xl="3">
-        <TagList :items="tags" />
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row class="ma-0" style="height: calc(100vh - 240px)">
+    <v-col cols="4" class="pa-0 h-100">
+      <MiniList :items="tags"/>
+    </v-col>
+    <v-divider vertical></v-divider>
+    <v-col class="pa-0 h-100">
+      chart
+    </v-col>
+  </v-row>
 </template>
 
-<script setup name="Dashboard">
+<script setup name="TagTab">
 import { ref } from 'vue'
 
-import Card from './components/Card.vue';
-import CategoryList from './components/CategoryList.vue'
-import TagList from './components/TagList.vue'
+import MiniList from './MiniList.vue'
 
-const dashboardCards = ref([
-  { name: 'Posts', count: 12, icon: 'mdi-note-multiple-outline', color: 'success'},
-  { name: 'Friend Links', count: 30, icon: 'mdi-vector-link', color: 'primary'},
-  { name: 'Comments', count: 121, icon: 'mdi-comment-multiple', color: 'accent'}
-])
 const tags = ref([
   {
     name: 'React',
@@ -97,3 +78,7 @@ const tags = ref([
   },
 ])
 </script>
+
+<style lang="scss" scoped>
+
+</style>

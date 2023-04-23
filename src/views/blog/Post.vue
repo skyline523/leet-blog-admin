@@ -45,7 +45,6 @@
         :loading="loading"
         class="elevation-0"
         item-value="name"
-        hover
       ></v-data-table-server>
     </v-card-text>
   </v-card>
