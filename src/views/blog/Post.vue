@@ -30,7 +30,7 @@
       <div class="pa-2">
         <CheckboxMenu :menu="categories" :checked="checkedCategories" @change="handleChecked"/>
         <CheckboxMenu :menu="tags" :checked="checkedTags" @change="handleChecked"/>
-        <v-btn color="primary" elevation="0">
+        <v-btn color="primary" elevation="0" @click="toCreatePost">
           <v-icon icon="mdi-plus"></v-icon>
           Create
         </v-btn>
@@ -52,8 +52,11 @@
 
 <script setup name="Post">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import CheckboxMenu from './components/CheckboxMenu.vue';
+
+const router = useRouter()
 
 const headers = [
   {
@@ -178,6 +181,9 @@ const handleCloseChip = (e) => {
   filterKeywords.value = [...checkedTags.value, ...checkedCategories.value]
 }
 
+const toCreatePost = () => {
+  router.push('/blog/posts/create')
+}
 </script>
 
 <style lang="scss" scoped>
