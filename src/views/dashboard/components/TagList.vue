@@ -2,13 +2,14 @@
   <v-card class="bg-surface rounded-xl h-100">
     <v-card-title class="d-flex flex-column justify-space-between pa-0">
       <v-text-field
-        v-model="query"
+        v-model="name"
         label="Input name and enter to create"
         hide-details
         variant="solo"
         prepend-inner-icon="mdi-playlist-plus"
         single-line
         class="text-text"
+        @change="handleCreate"
       ></v-text-field>
       <v-divider></v-divider>
     </v-card-title>
@@ -18,7 +19,6 @@
         v-for="item in items"
         :key="item.name"
         closable
-        v-bind="props"
         class="ma-1"
         variant="text"
         :style="`border: 2px solid ${randomColor()}`"
@@ -30,18 +30,40 @@
 </template>
 
 <script setup name="TagList">
-import { toRefs, ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 
-const props = defineProps({
-  items: {
-    type: Array,
-    default: () => []
-  }
+import { useSnackbarStore } from '@/store/snackbar';
+import { createTag, getTags } from '@/api/post';
+
+const snackbarStore = useSnackbarStore()
+
+const name = ref('')
+const items = ref([])
+
+onBeforeMount(() => {
+  getAll()
 })
 
-const { items } = toRefs(props)
+const handleCreate = async () => {
+  const params = { name: name.value }
+  const { data } = await createTag(params)
+  if (data.status === 'success') {
+    getAll()
+    name.value = ''
+    snackbarStore.open({
+      message: '新增标签成功',
+      color: 'blue'
+    })
+  }
 
-const query = ref('')
+}
+
+const getAll = async () => {
+  const res = await getTags()
+  if (res.status === 'success') {
+    items.value = res.result
+  }
+}
 
 const randomColor = () => {
   const r = Math.floor(Math.random() * 256)

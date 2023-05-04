@@ -13,7 +13,7 @@
         chart
       </v-col>
       <v-col class="h-100" cols="12" sm="6" md="6" xl="3">
-        <CategoryList :items="tags" />
+        <CategoryList />
       </v-col>
       <v-col class="h-100" cols="12" sm="6" md="6" xl="3">
         <TagList :items="tags" />
