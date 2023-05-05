@@ -10,6 +10,9 @@
   "dependencies": {
     "@mdi/font": "7.0.96",
     "@tinymce/tinymce-vue": "^5",
+    "@tiptap/pm": "^2.0.3",
+    "@tiptap/starter-kit": "^2.0.3",
+    "@tiptap/vue-3": "^2.0.3",
     "@vueuse/core": "^10.1.2",
     "axios": "^1.3.6",
     "nprogress": "^0.2.0",

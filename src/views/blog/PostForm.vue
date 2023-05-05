@@ -23,12 +23,13 @@
         ></v-textarea>
         <div>
           <p>Content</p>
-          <Editor
+          <RichText />
+          <!-- <Editor
             :api-key="editorKey"
             :init="{
               plugins: 'lists link image table fullscreen code help wordcount',
             }"
-          />
+          /> -->
         </div>
       </v-card>
     </v-col>
@@ -95,9 +96,10 @@
 </template>
 
 <script setup name="PostForm">
-import Editor from '@tinymce/tinymce-vue'
+// import Editor from '@tinymce/tinymce-vue'
+import RichText from './components/RichText.vue'
 
-const editorKey = import.meta.env.TINY_API_KEY
+// const editorKey = import.meta.env.TINY_API_KEY
 </script>
 
 <style lang="scss" scoped>

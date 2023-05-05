@@ -1,6 +1,7 @@
 @import './variables';
 @import 'vuetify/styles';
 @import './override';
+@import './pages/editor.scss';
 
 ::-webkit-scrollbar {
   width: 6px;
