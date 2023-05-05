@@ -47,10 +47,10 @@ export const useUserStore = defineStore('user', {
       sessionStorage.clear()
     },
     async login(payload) {
-      const res = await login(payload)
+      const { data } = await login(payload)
 
-      if (res.code === 200) {
-        this.setToken(res.data.token)
+      if (data.value.code === 200) {
+        this.setToken(data.value.data.token)
         snackbarStore.open({
           content: '登录成功',
           color: 'blue'

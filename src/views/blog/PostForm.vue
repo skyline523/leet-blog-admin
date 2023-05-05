@@ -2,6 +2,17 @@
   <v-row>
     <v-col cols="12" md="8">
       <v-card class="pa-6">
+        <div class="mb-5">
+          <p>Cover Image</p>
+          <v-file-input label="File input" variant="underlined"></v-file-input>
+          <div class="elevation-1 py-4">
+            <v-img
+              style="margin: 0 auto"
+              width="50%"
+              src="@/assets/image_viewer.svg"
+            ></v-img>
+          </div>
+        </div>
         <v-text-field
           variant="outlined"
           label="Post Title"
@@ -49,7 +60,15 @@
             <div class="mt-4">
               <v-select
                 chips
-                label="Select"
+                label="Category"
+                :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                variant="outlined"
+              ></v-select>
+            </div>
+            <div>
+              <v-select
+                chips
+                label="Tags"
                 :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
                 multiple
                 variant="outlined"
@@ -67,6 +86,10 @@
             </div>
         </v-card-text>
       </v-card>
+      <div class="d-flex mt-5" style="box-sizing: border-box; column-gap: 12px">
+        <v-btn variant="outlined" size="large" style="flex: 1">Preview</v-btn>
+        <v-btn color="primary" size="large" class="elevation-0" style="flex: 1">Post</v-btn>
+      </div>
     </v-col>
   </v-row>
 </template>

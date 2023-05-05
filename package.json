@@ -10,6 +10,7 @@
   "dependencies": {
     "@mdi/font": "7.0.96",
     "@tinymce/tinymce-vue": "^5",
+    "@vueuse/core": "^10.1.2",
     "axios": "^1.3.6",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.23",

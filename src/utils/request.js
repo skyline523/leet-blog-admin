@@ -1,6 +1,6 @@
 import axios from 'axios'
-import router from '@/router'
 
+import router from '@/router'
 import pinia from '@/store'
 import { useUserStore } from '@/store/user'
 import { useSnackbarStore } from '@/store/snackbar'

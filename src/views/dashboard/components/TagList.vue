@@ -1,6 +1,6 @@
 <template>
-  <v-card class="bg-surface rounded-xl h-100">
-    <v-card-title class="d-flex flex-column justify-space-between pa-0">
+  <v-card class="bg-surface rounded-xl h-100" :loading="isFetching">
+    <v-card-title class="d-flex align-stretch justify-space-between pa-0">
       <v-text-field
         v-model="name"
         label="Input name and enter to create"
@@ -9,59 +9,68 @@
         prepend-inner-icon="mdi-playlist-plus"
         single-line
         class="text-text"
-        @change="handleCreate"
       ></v-text-field>
-      <v-divider></v-divider>
+      <v-btn style="height: 56px" class="elevation-0" @click="handleCreate">新增</v-btn>
     </v-card-title>
+    <v-divider></v-divider>
 
-    <v-card-text class="px-2 py-2 list">
+    <v-card-text class="px-2 py-2 list" v-if="data">
       <v-chip
-        v-for="item in items"
+        v-for="item in data.result"
         :key="item.name"
         closable
         class="ma-1"
         variant="text"
         :style="`border: 2px solid ${randomColor()}`"
+        @click:close="handleDelete(item)"
       >
         {{ item.name }}
       </v-chip>
     </v-card-text>
+    <v-skeleton-loader
+      v-for="index in 7"
+      :key="index"
+      :loading="!data"
+      type="list-item"
+    ></v-skeleton-loader>
   </v-card>
 </template>
 
 <script setup name="TagList">
-import { ref, onBeforeMount } from 'vue';
+import { ref } from 'vue';
 
 import { useSnackbarStore } from '@/store/snackbar';
-import { createTag, getTags } from '@/api/post';
+import { createTag, getTags, deleteTag } from '@/api/post';
 
 const snackbarStore = useSnackbarStore()
 
 const name = ref('')
-const items = ref([])
 
-onBeforeMount(() => {
-  getAll()
-})
+const { isFetching, data, execute } = getTags()
+console.log(data)
 
 const handleCreate = async () => {
   const params = { name: name.value }
   const { data } = await createTag(params)
-  if (data.status === 'success') {
-    getAll()
+  if (data.value.status === 'success') {
+    execute()
     name.value = ''
     snackbarStore.open({
-      message: '新增标签成功',
+      content: '新增标签成功',
       color: 'blue'
     })
   }
 
 }
 
-const getAll = async () => {
-  const res = await getTags()
-  if (res.status === 'success') {
-    items.value = res.result
+const handleDelete = async (item) => {
+  const { data } = await deleteTag(item._id)
+  if (data.value.status === 'success') {
+    execute()
+    snackbarStore.open({
+      content: '分类删除成功',
+      color: 'blue'
+    })
   }
 }
 
