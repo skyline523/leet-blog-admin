@@ -3,7 +3,7 @@
     <v-card-title class="d-flex align-stretch justify-space-between pa-0">
       <v-text-field
         v-model="name"
-        label="Input name and enter to create"
+        label="Input name"
         hide-details
         variant="solo"
         prepend-inner-icon="mdi-playlist-plus"
