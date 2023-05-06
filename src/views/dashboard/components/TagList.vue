@@ -47,7 +47,6 @@ const snackbarStore = useSnackbarStore()
 const name = ref('')
 
 const { isFetching, data, execute } = getTags()
-console.log(data)
 
 const handleCreate = async () => {
   const params = { name: name.value }

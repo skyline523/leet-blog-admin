@@ -59,12 +59,12 @@ const items = ref([
     action: () => props.editor.chain().focus().toggleCode().run(),
     isActive: () => props.editor.isActive("code"),
   },
-  {
-    icon: " mdi-format-color-text",
-    title: "Highlight",
-    action: () => props.editor.chain().focus()?.toggleHighlight().run(),
-    isActive: () => props.editor.isActive("highlight"),
-  },
+  // {
+  //   icon: " mdi-format-color-text",
+  //   title: "Highlight",
+  //   action: () => props.editor.chain().focus()?.toggleHighlight().run(),
+  //   isActive: () => props.editor.isActive("highlight"),
+  // },
   {
     type: "divider",
   },
@@ -100,12 +100,20 @@ const items = ref([
     action: () => props.editor.chain().focus().toggleOrderedList().run(),
     isActive: () => props.editor.isActive("orderedList"),
   },
-  {
-    icon: "mdi-format-list-checks",
-    title: "Task List",
-    action: () => props.editor.chain().focus()?.toggleTaskList().run(),
-    isActive: () => props.editor.isActive("taskList"),
-  },
+  // {
+  //   icon: 'mdi-image-outline',
+  //   title: 'Image',
+  //   action: () => {
+  //     const url = window.prompt('URL')
+  //     props.editor.chain().focus().setImage({ src: url }).run()
+  //   },
+  // },
+  // {
+  //   icon: "mdi-format-list-checks",
+  //   title: "Task List",
+  //   action: () => props.editor.chain().focus()?.toggleTaskList().run(),
+  //   isActive: () => props.editor.isActive("taskList"),
+  // },
   {
     icon: "mdi-code-braces",
     title: "Code Block",
