@@ -20,18 +20,18 @@
         <p class="text-h5">{{ contents.title }}</p>
         <p class="text-subtitle-2">{{ contents.description }}</p>
         <div class="mb-8">
-          <span>{{ contents.category }}</span>
-          <v-divided vertical></v-divided>
+          <span v-if="contents.category">{{ contents.category.name }} <v-icon>mdi-circle-small</v-icon></span>
           <v-chip
-            v-for="item in 2"
-            :key="item.name"
+            v-for="item in contents.tags"
+            :key="item._id"
             class="mr-2 my-1"
+            size="small"
           >
-            Vue
+            {{ item.name }}
           </v-chip>
         </div>
 
-        <p v-html="contents.content"></p>
+        <div v-html="contents.content" class="ProseMirror content"></div>
       </div>
     </v-container>
 
@@ -57,9 +57,22 @@ const emits = defineEmits(['close'])
 </script>
 
 <style lang="scss" scoped>
+.v-container {
+  height: calc(100vh - 64px);
+  overflow: auto;
+}
 .container {
   margin: 0 auto;
   max-width: 900px;
   width: 100%;
+  height: 100%;
+}
+.content {
+  padding: 0;
+  border: none;
+  border-radius: unset;
+  height: auto;
+  max-height: unset;
+  min-height: unset;
 }
 </style>

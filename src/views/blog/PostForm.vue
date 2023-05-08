@@ -89,7 +89,7 @@
                   label="Category"
                   :items="categoryOptions"
                   item-title="name"
-                  item-value="_id"
+                  return-object
                   variant="outlined"
                   @update:menu="fetchCategories"
                 ></v-select>
@@ -102,7 +102,7 @@
                   label="Tags"
                   :items="tagOptions"
                   item-title="name"
-                  item-value="_id"
+                  return-object
                   multiple
                   variant="outlined"
                   @update:menu="fetchTags"
@@ -226,11 +226,18 @@ const previewVisible = ref(false)
 
 const handlePost = async () => {
   posting.value = true
+  const params = { ...contents }
+  if (contents.category) {
+    params.category = contents.category._id
+  }
+  if (contents.tags.length > 0) {
+    params.tags = contents.tags.map(item => item._id)
+  }
   const { isFetching, data } = await createPost(contents)
   if (isFetching) posting.value = false
   if (data.value.status === 'success') {
     snackbarStore.open({
-      content: '新增分类成功',
+      content: '新增文章成功',
       color: 'blue'
     })
   }
