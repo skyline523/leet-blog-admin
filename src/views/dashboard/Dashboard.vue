@@ -10,7 +10,6 @@
     </v-row>
     <v-row style="height: 400px">
       <v-col class="h-100" cols="12" sm="12" md="12" xl="6">
-        chart
       </v-col>
       <v-col class="h-100" cols="12" sm="6" md="6" xl="3">
         <CategoryList />

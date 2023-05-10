@@ -63,10 +63,10 @@ export const useUserStore = defineStore('user', {
     async afterLoginAction() {
       if (!this.token) return null
 
-      const res = await getUserInfo()
+      const { data } = await getUserInfo()
 
-      if (res.code === 200) {
-        this.setUserInfo(res.data)
+      if (data.value.code === 200) {
+        this.setUserInfo(data.value.data)
 
         // 是否跳转：从登录页进入需要跳转；刷新页面不需要跳转
         // if (isGoto) {

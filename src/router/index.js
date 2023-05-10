@@ -4,6 +4,7 @@ import nProgress from 'nprogress'
 import { useUserStore } from '@/store/user'
 import authRoutes from './auth'
 import blogRoutes from './blog'
+import chatRoutes from './chat'
 
 import 'nprogress/nprogress.css'
 
@@ -31,7 +32,8 @@ const routes = [
   //   component: () => import('@/views/errors/NotFound.vue')
   // },
   ...authRoutes,
-  ...blogRoutes
+  ...blogRoutes,
+  ...chatRoutes
 ]
 
 const router = createRouter({
