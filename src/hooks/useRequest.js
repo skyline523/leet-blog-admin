@@ -22,7 +22,6 @@ const useRequest = createFetch({
     },
     afterFetch({ data, response }) {
       const userStore = useUserStore()
-      console.log(data, response)
       if (response.status === 200) {
         if (data.code >= 400 && data.code <= 500) {
           if (data.code === 401) {
@@ -51,7 +50,7 @@ const useRequest = createFetch({
     }
   },
   fetchOptions: {
-    mode: 'no-cors',
+    mode: 'cors',
     credentials: 'include'
   }
 })
