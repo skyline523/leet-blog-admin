@@ -11,17 +11,6 @@
           style="min-width: 108px"
           @update:modelValue="handleSort"
         ></v-select>
-        <!-- <v-text-field
-          v-model="keyword"
-          placeholder="Search..."
-          variant="solo"
-          hide-details
-          density="compact"
-          prepend-inner-icon="mdi-magnify"
-          class="text-text ml-4"
-          style="width: 280px"
-          @update:modelValue="handleSearch"
-        ></v-text-field> -->
         <v-expansion-panels
           v-model="panel"
           color="background"
@@ -39,8 +28,28 @@
               style="width: 280px"
               @update:modelValue="handleSearch"
             ></v-text-field>
-            <v-expansion-panel-text class="rounded-lg">
-              <div class="d-flex flex-column align-center">
+            <v-expansion-panel-text class="rounded-lg pa-2">
+              <div v-if="filtered.length > 0" class="py-2">
+                <v-hover v-for="item in filtered" :key="item.id" v-slot:default="{ isHovering, props }">
+                  <div
+                    v-bind="props"
+                    class="d-flex align-center pa-2 rounded-lg cursor-pointer"
+                    :class="{'bg-info': isHovering}"
+                    @click="toPost"
+                  >
+                    <v-img
+                      :src="item.cover"
+                      :lazy-src="item.cover"
+                      width="48"
+                      height="48"
+                      cover
+                      class="rounded-lg"
+                    ></v-img>
+                    <p v-html="setHighlight(item.title)" class="text-subtitle-2 line-clamp-2 ml-4 w-100"></p>
+                  </div>
+                </v-hover>
+              </div>
+              <div v-else class="d-flex flex-column align-center">
                 <p class="text-h6">Not Found</p>
                 <div class="d-flex flex-column align-center mt-4">
                   <p class="text-subtitle-2 text-center">No results found for "<span class="text-primary">{{ keyword }}</span>".</p>
@@ -99,6 +108,7 @@ const router = useRouter()
 const sort = ref('Latest')
 const keyword = ref('')
 const panel = ref('')
+const filtered = ref([])
 const skeletonCount = ref(8)
 const url = ref('https://api-prod-minimal-v4.vercel.app/api/blog/posts')
 
@@ -120,9 +130,36 @@ const handleSort = (val) => {
 }
 
 const handleSearch = (val) => {
-  console.log(123)
-  if (val) panel.value = 0
+  if (val) {
+    panel.value = 0
+    const query = val.toLowerCase()
+    filtered.value = data.value.posts.filter(item => item.title.toLowerCase().indexOf(query) !== -1)
+  }
   else panel.value = ''
+}
+
+const setHighlight = (str) => {
+  const text = keyword.value
+  if (text) {
+    const index = str.toLowerCase().indexOf(text.toLowerCase())
+    if (index !== -1) {
+      const before = str.slice(0, index)
+      const middle = str.slice(index, index + text.length)
+      const after = str.slice(index + text.length)
+      // str = str.replace(reg, `<span class="text-primary">$&</span>`)
+      console.log(`${before}<span class="text-primary">${middle}</span>${after}`)
+      return `${before}<span class="text-primary">${middle}</span>${after}`
+    } else {
+      return str
+    }
+  } else {
+    return str
+  }
+}
+
+const toPost = () => {
+  keyword.value = ''
+  panel.value = ''
 }
 
 const toCreatePost = () => {
@@ -135,6 +172,10 @@ const toCreatePost = () => {
   position: absolute;
   top: 41px;
   width: 100%;
-  height: 136px;
+  max-height: 300px;
+  overflow: overlay;
+}
+:deep(.v-expansion-panel-text__wrapper) {
+  padding: 0;
 }
 </style>
