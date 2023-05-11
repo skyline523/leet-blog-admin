@@ -50,7 +50,7 @@ const useRequest = createFetch({
     }
   },
   fetchOptions: {
-    mode: 'cors',
+    mode: 'no-cors',
     credentials: 'include'
   }
 })
