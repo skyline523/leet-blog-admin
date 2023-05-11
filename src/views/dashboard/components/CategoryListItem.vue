@@ -49,8 +49,8 @@
 <script setup name="CategoryListItem">
 import { toRefs, ref } from 'vue'
 
-import { updateCategory, deleteCategory } from '@/api/post'
-import { useSnackbarStore } from '@/store/snackbar'
+// import { updateCategory, deleteCategory } from '@/api/post'
+// import { useSnackbarStore } from '@/store/snackbar'
 
 const props = defineProps({
   item: {
@@ -58,11 +58,11 @@ const props = defineProps({
     default: null
   }
 })
-const emits = defineEmits(['update'])
+// const emits = defineEmits(['update'])
 
 const { item } = toRefs(props)
 
-const snackbarStore = useSnackbarStore()
+// const snackbarStore = useSnackbarStore()
 
 const isEdit = ref(false)
 const name = ref(item.value.name)
@@ -73,37 +73,37 @@ const onClickOutside = () => {
 }
 
 const handleEdit = async () => {
-  if (!name.value) {
-    return snackbarStore.open({
-      content: '修改时分类名不能为空',
-      color: 'blue'
-    })
-  }
-  if (name.value === item.value.name) {
-    isEdit.value = false
-    return
-  }
-  const { data } = await updateCategory(item.value._id, { name: name.value })
-  if (data.value.status === 'success') {
-    isEdit.value = false
-    emits('update')
-    snackbarStore.open({
-      content: '分类更新成功',
-      color: 'blue'
-    })
-  }
+  // if (!name.value) {
+  //   return snackbarStore.open({
+  //     content: '修改时分类名不能为空',
+  //     color: 'blue'
+  //   })
+  // }
+  // if (name.value === item.value.name) {
+  //   isEdit.value = false
+  //   return
+  // }
+  // const { data } = await updateCategory(item.value._id, { name: name.value })
+  // if (data.value.status === 'success') {
+  //   isEdit.value = false
+  //   emits('update')
+  //   snackbarStore.open({
+  //     content: '分类更新成功',
+  //     color: 'blue'
+  //   })
+  // }
 }
 
 const handleDelete = async () => {
-  const { data } = await deleteCategory(item.value._id)
-  console.log(data)
-  if (data.value.status === 'success') {
-    emits('update')
-    snackbarStore.open({
-      content: '分类删除成功',
-      color: 'blue'
-    })
-  }
+  // const { data } = await deleteCategory(item.value._id)
+  // console.log(data)
+  // if (data.value.status === 'success') {
+  //   emits('update')
+  //   snackbarStore.open({
+  //     content: '分类删除成功',
+  //     color: 'blue'
+  //   })
+  // }
 }
 </script>
 

@@ -39,38 +39,37 @@
 <script setup name="TagList">
 import { ref } from 'vue';
 
-import { useSnackbarStore } from '@/store/snackbar';
-import { createTag, getTags, deleteTag } from '@/api/post';
+// import { useSnackbarStore } from '@/store/snackbar';
+import { getTags } from '@/api/post';
 
-const snackbarStore = useSnackbarStore()
+// const snackbarStore = useSnackbarStore()
 
 const name = ref('')
 
-const { isFetching, data, execute } = getTags()
+const { isFetching, data } = getTags()
 
 const handleCreate = async () => {
-  const params = { name: name.value }
-  const { data } = await createTag(params)
-  if (data.value.status === 'success') {
-    execute()
-    name.value = ''
-    snackbarStore.open({
-      content: '新增标签成功',
-      color: 'blue'
-    })
-  }
-
+  // const params = { name: name.value }
+  // const { data } = await createTag(params)
+  // if (data.value.status === 'success') {
+  //   execute()
+  //   name.value = ''
+  //   snackbarStore.open({
+  //     content: '新增标签成功',
+  //     color: 'blue'
+  //   })
+  // }
 }
 
-const handleDelete = async (item) => {
-  const { data } = await deleteTag(item._id)
-  if (data.value.status === 'success') {
-    execute()
-    snackbarStore.open({
-      content: '分类删除成功',
-      color: 'blue'
-    })
-  }
+const handleDelete = async () => {
+  // const { data } = await deleteTag(item._id)
+  // if (data.value.status === 'success') {
+  //   execute()
+  //   snackbarStore.open({
+  //     content: '分类删除成功',
+  //     color: 'blue'
+  //   })
+  // }
 }
 
 const randomColor = () => {

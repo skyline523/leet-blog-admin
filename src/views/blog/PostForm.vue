@@ -168,10 +168,10 @@ import { ref, reactive } from 'vue'
 
 import Editor from './components/Editor.vue'
 import PostPreview from './components/PostPreview.vue'
-import { useSnackbarStore } from '@/store/snackbar';
-import { getCategorires, getTags, createPost } from '@/api/post';
-
-const snackbarStore = useSnackbarStore()
+// import { useSnackbarStore } from '@/store/snackbar';
+import { getCategorires, getTags } from '@/api/post';
+// createPost
+// const snackbarStore = useSnackbarStore()
 
 const contents = reactive({
   coverImage: '',
@@ -225,22 +225,22 @@ const posting = ref(false)
 const previewVisible = ref(false)
 
 const handlePost = async () => {
-  posting.value = true
-  const params = { ...contents }
-  if (contents.category) {
-    params.category = contents.category._id
-  }
-  if (contents.tags.length > 0) {
-    params.tags = contents.tags.map(item => item._id)
-  }
-  const { isFetching, data } = await createPost(contents)
-  if (isFetching) posting.value = false
-  if (data.value.status === 'success') {
-    snackbarStore.open({
-      content: '新增文章成功',
-      color: 'blue'
-    })
-  }
+  // posting.value = true
+  // const params = { ...contents }
+  // if (contents.category) {
+  //   params.category = contents.category._id
+  // }
+  // if (contents.tags.length > 0) {
+  //   params.tags = contents.tags.map(item => item._id)
+  // }
+  // const { isFetching, data } = await createPost(contents)
+  // if (isFetching) posting.value = false
+  // if (data.value.status === 'success') {
+  //   snackbarStore.open({
+  //     content: '新增文章成功',
+  //     color: 'blue'
+  //   })
+  // }
 }
 
 const fetchCategories = async (e) => {
