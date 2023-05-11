@@ -1,8 +1,73 @@
-<!--
-* @Component:
-* @Maintainer: J.K. Yang
-* @Description:
--->
+<template>
+  <v-card>
+    <div v-if="messages.length > 0" class="message-container">
+      <template v-for="(message, index) in messages" :key=index>
+        <div v-if="message.role === 'user'">
+          <div class="pa-6 bg-surface">
+            <div class="message align-center">
+              <v-avatar class="mr-9">
+                <img src="@/assets/logo.svg" alt="alt" />
+              </v-avatar>
+              <p class="text-text">{{ message.content }}</p>
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <div class="bg-info pa-6">
+            <div class="message">
+              <v-avatar class="mr-4 mt-4">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwrAiMevuwrbU9o0Ck2paVf4ufHUDb2dU48MEDrAlrQw&s"
+                  alt="alt"
+                />
+              </v-avatar>
+              <md-editor v-model="message.content" previewOnly class="bg-info text-text" />
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div class="no-message-container" v-else>
+      <h1 class="text-h2 text-blue-lighten-1 font-weight-bold">
+        Ask Me Any Thing
+      </h1>
+      <!-- <AnimationAi /> -->
+    </div>
+
+    <v-sheet elevation="0" class="my-5 mx-auto" max-width="1200">
+      <!-- Todo Select Model  -->
+
+      <!-- <div class="mb-2">
+        <v-select
+          class="w-50"
+          label="Model"
+          hide-details
+          :items="['GPT-4', 'GPT-3.5']"
+          variant="solo"
+        ></v-select>
+      </div> -->
+      <v-text-field
+        class="mx-2"
+        color="primary"
+        ref="input"
+        v-model="userMessage"
+        placeholder="SendMessage"
+        variant="solo"
+        hide-details
+        @keyup.enter="sendMessage"
+      >
+        <template #prepend-inner>
+          <v-icon>mdi-microphone</v-icon>
+        </template>
+
+        <template #append-inner>
+          <v-icon @click="sendMessage">mdi-send</v-icon>
+        </template>
+      </v-text-field>
+    </v-sheet>
+  </v-card>
+</template>
+
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useSnackbarStore } from "@/store/snackbar";
@@ -123,79 +188,11 @@ watch(
 );
 </script>
 
-<template>
-  <v-card>
-    <div v-if="messages.length > 0" class="message-container">
-      <template v-for="(message, index) in messages" :key=index>
-        <div v-if="message.role === 'user'">
-          <div class="pa-6 user-message">
-            <div class="message align-center">
-              <v-avatar class="mr-9">
-                <img src="@/assets/logo.svg" alt="alt" />
-              </v-avatar>
-              <b> {{ message.content }}</b>
-            </div>
-          </div>
-        </div>
-        <div v-else>
-          <div class="bg-white pa-6">
-            <div class="message">
-              <v-avatar class="mr-4 mt-4">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwrAiMevuwrbU9o0Ck2paVf4ufHUDb2dU48MEDrAlrQw&s"
-                  alt="alt"
-                />
-              </v-avatar>
-              <md-editor v-model="message.content" previewOnly />
-            </div>
-          </div>
-        </div>
-      </template>
-    </div>
-    <div class="no-message-container" v-else>
-      <h1 class="text-h2 text-blue-lighten-1 font-weight-bold">
-        Ask Me Any Thing
-      </h1>
-      <!-- <AnimationAi /> -->
-    </div>
-
-    <v-sheet elevation="0" class="my-5 mx-auto" max-width="1200">
-      <!-- Todo Select Model  -->
-
-      <!-- <div class="mb-2">
-        <v-select
-          class="w-50"
-          label="Model"
-          hide-details
-          :items="['GPT-4', 'GPT-3.5']"
-          variant="solo"
-        ></v-select>
-      </div> -->
-      <v-text-field
-        color="primary"
-        ref="input"
-        v-model="userMessage"
-        placeholder="SendMessage"
-        hide-details
-        @keyup.enter="sendMessage"
-      >
-        <template #prepend-inner>
-          <v-icon>mdi-microphone</v-icon>
-        </template>
-
-        <template #append-inner>
-          <v-icon @click="sendMessage">mdi-send</v-icon>
-        </template>
-      </v-text-field>
-    </v-sheet>
-  </v-card>
-</template>
-
 <style scoped lang="scss">
 .user-message {
   background-color: #f6f6f6;
-  border-top: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
+  // border-top: 1px solid #e5e7eb;
+  // border-bottom: 1px solid #e5e7eb;
 }
 
 .message {
@@ -205,7 +202,9 @@ watch(
 }
 
 .message-container {
+  position: relative;
   height: calc(100vh - 330px);
+  overflow: overlay;
 }
 
 .no-message-container {
