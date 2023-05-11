@@ -23,6 +23,7 @@ const useRequest = createFetch({
     afterFetch({ data, response }) {
       const userStore = useUserStore()
       if (response.status === 200) {
+        console.log(data, response)
         if (data.code >= 400 && data.code <= 500) {
           if (data.code === 401) {
             userStore.resetState()
