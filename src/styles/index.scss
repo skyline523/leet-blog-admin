@@ -9,6 +9,32 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(1 2 3 / 40%);
+  background: rgb(1 2 3 / 40%) !important;
   border-radius: 10px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.line-clamp-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }

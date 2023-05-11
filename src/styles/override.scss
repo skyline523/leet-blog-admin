@@ -40,6 +40,10 @@ html {
     }
   }
 
+  .v-expansion-panel__shadow {
+    box-shadow: unset;
+  }
+
   .v-theme--darkTheme {
     .v-card,
     .v-list,
@@ -53,6 +57,14 @@ html {
       border: none !important;
       background-color: #1C2536 !important;
     }
+
+    .v-expansion-panel-text {
+      background-color: #111927 !important;
+    }
+
+    .md-editor .md-editor-preview {
+      color: #ffffff;
+    }
   }
 
   .v-theme--lightTheme {
@@ -60,6 +72,10 @@ html {
       height: 42px !important;
       border: none !important;
       background-color: #F8F9FA !important;
+    }
+
+    .v-expansion-panel-text {
+      background-color: #ffffff !important;
     }
   }
 }

@@ -22,6 +22,17 @@ export default [
     }
   },
   {
+    path: '/blog/users',
+    name: 'User',
+    component: () => import('@/views/blog/User.vue'),
+    meta: {
+      isAuth: true,
+      layout: 'default',
+      title: 'User',
+      category: 'Blog'
+    }
+  },
+  {
     path: '/blog/archive',
     name: 'Archive',
     component: () => import('@/views/blog/Archive.vue'),

@@ -57,7 +57,6 @@ const menuTooltip = ref('Hide')
 const userInfo = computed(() => userStore.userInfo);
 
 onMounted(() => {
-  console.log(userStore)
   userStore.afterLoginAction();
 });
 
