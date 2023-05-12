@@ -1,8 +1,8 @@
 export default [
   {
     path: '/blog/posts',
-    name: 'Post',
-    component: () => import('@/views/blog/Post.vue'),
+    name: 'Posts',
+    component: () => import('@/views/blog/Posts.vue'),
     meta: {
       isAuth: true,
       layout: 'default',
@@ -11,9 +11,20 @@ export default [
     }
   },
   {
+    path: '/blog/posts/:title',
+    name: 'Post',
+    component: () => import('@/views/blog/Post.vue'),
+    meta: {
+      isAuth: true,
+      layout: 'default',
+      title: 'Post Detail',
+      category: 'Blog'
+    }
+  },
+  {
     path: '/blog/posts/create',
     name: 'Create Post',
-    component: () => import('@/views/blog/PostForm.vue'),
+    component: () => import('@/views/blog/PostCreate.vue'),
     meta: {
       isAuth: true,
       layout: 'default',

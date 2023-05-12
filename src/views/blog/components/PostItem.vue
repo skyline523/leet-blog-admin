@@ -38,6 +38,7 @@
           v-bind="props"
           class="py-1 font-weight-bold cursor-pointer line-clamp-2 flex-fill"
           :class="{'text-decoration-underline': isHovering, 'title--mask': cover}"
+          @click="toPostDetail"
         >{{ post.title }}</p>
       </v-hover>
 
@@ -61,6 +62,7 @@
 
 <script setup name="PostItem">
 import { toRefs, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   post: {
@@ -75,10 +77,17 @@ const props = defineProps({
 })
 const { post } = toRefs(props)
 
+const router = useRouter()
+
 const formatNumber = computed(() => (val) => {
   if (val >= 1000) return (val / 1000).toFixed(2) + 'k'
   else return val
 })
+
+const toPostDetail = () => {
+  const slug = post.value.title.toLowerCase().split(' ').join('-')
+  router.push(`/blog/posts/${slug}`)
+}
 </script>
 
 <style lang="scss" scoped>

@@ -100,8 +100,11 @@
   }
 
   img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
+    border-radius: 20px;
+    aspect-ratio: 16/9;
+    object-fit: cover;
   }
 
   blockquote {
