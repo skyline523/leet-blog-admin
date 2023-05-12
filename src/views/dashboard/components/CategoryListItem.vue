@@ -58,7 +58,7 @@ const props = defineProps({
     default: null
   }
 })
-// const emits = defineEmits(['update'])
+const emits = defineEmits(['update'])
 
 const { item } = toRefs(props)
 
@@ -86,7 +86,7 @@ const handleEdit = async () => {
   // const { data } = await updateCategory(item.value._id, { name: name.value })
   // if (data.value.status === 'success') {
   //   isEdit.value = false
-  //   emits('update')
+    emits('update')
   //   snackbarStore.open({
   //     content: '分类更新成功',
   //     color: 'blue'
@@ -98,7 +98,7 @@ const handleDelete = async () => {
   // const { data } = await deleteCategory(item.value._id)
   // console.log(data)
   // if (data.value.status === 'success') {
-  //   emits('update')
+    emits('update')
   //   snackbarStore.open({
   //     content: '分类删除成功',
   //     color: 'blue'

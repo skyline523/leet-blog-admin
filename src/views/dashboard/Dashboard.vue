@@ -10,6 +10,7 @@
     </v-row>
     <v-row style="height: 400px">
       <v-col class="h-100" cols="12" sm="12" md="12" xl="6">
+        <BarChart />
       </v-col>
       <v-col class="h-100" cols="12" sm="6" md="6" xl="3">
         <CategoryList />
@@ -27,6 +28,7 @@ import { ref } from 'vue'
 import Card from './components/Card.vue';
 import CategoryList from './components/CategoryList.vue'
 import TagList from './components/TagList.vue'
+import BarChart from './components/BarChart.vue';
 
 const dashboardCards = ref([
   { name: 'Posts', count: 12, icon: 'mdi-note-multiple-outline', color: 'success'},
