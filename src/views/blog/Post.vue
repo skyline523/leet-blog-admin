@@ -1,20 +1,20 @@
 <template>
   <v-sheet color="background">
-    <div class="d-flex justify-space-between align-center mt-4">
-      <div class="d-flex">
+    <div class="d-flex flex-column flex-sm-row justify-space-between align-start align-sm-center mt-4">
+      <div class="d-flex flex-column flex-sm-row">
         <v-select
           v-model="sort"
           :items="['Latest', 'Popular', 'Oldest']"
           variant="solo"
           hide-details
           density="compact"
-          style="min-width: 108px"
+          style="width: 108px"
           @update:modelValue="handleSort"
         ></v-select>
         <v-expansion-panels
           v-model="panel"
           color="background"
-          class="ml-4 elevation-0"
+          class="ml-sm-4 my-3 my-sm-0 elevation-0"
         >
           <v-expansion-panel>
             <v-text-field
