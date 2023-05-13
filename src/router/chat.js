@@ -1,13 +1,13 @@
 export default [
   {
-    path: '/chatGPT/v1',
-    name: 'Chatbot',
-    component: () => import('@/views/chatgpt/chatbot.vue'),
+    path: '/chatAI/v1',
+    name: 'ChatGPT',
+    component: () => import('@/views/chatAI/ChatGPT.vue'),
     meta: {
       isAuth: true,
       layout: 'default',
-      title: 'Chatbot',
-      category: 'ChatGPT'
+      title: 'ChatGPT',
+      category: 'ChatAI'
     }
   }
 ]

@@ -41,7 +41,7 @@
           :lazy-src="data.post.cover"
           cover
           aspect-ratio="16/9"
-          class="cover"
+          class="cover rounded-t-xl"
         >
           <template v-slot:placeholder>
             <v-row
@@ -88,6 +88,7 @@ const { isFetching, data } = useFetch(`${url.value}?title=${route.params.title}`
   width: 100%;
   height: 100% !important;
   z-index: -1;
+  overflow: hidden;
 
   &::after {
     content: '';

@@ -1,7 +1,7 @@
 export default [
   {
-    name: 'Chatbot',
-    link: '/chatGPT/v1',
+    name: 'ChatGPT',
+    link: '/chatAI/v1',
     icon: 'mdi-robot-outline'
   }
 ]

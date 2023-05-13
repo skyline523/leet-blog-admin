@@ -14,7 +14,7 @@
               :rules="[(value) => !!value || '封面图片不能为空']"
               clearable
             ></v-text-field>
-            <div class="elevation-1">
+            <div class="elevation-1 bg-info">
               <v-img
                 v-if="contents.coverImage"
                 style="margin: 0 auto; height: 240px"
@@ -25,7 +25,7 @@
               <v-img
                 v-else
                 style="margin: 0 auto; height: 240px"
-                width="50%"
+                width="30%"
                 src="@/assets/image_viewer.svg"
               ></v-img>
             </div>

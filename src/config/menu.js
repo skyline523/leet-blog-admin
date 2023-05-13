@@ -17,7 +17,7 @@ export default [
     items: blogMenu
   },
   {
-    text: 'CHATGPT',
+    text: 'CHAT AI',
     items: chatMenu
   }
 ]
