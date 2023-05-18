@@ -1,5 +1,5 @@
 <template>
-  <v-card class="bg-surface rounded-xl h-100" :loading="isFetching">
+  <v-card class="bg-surface rounded-xl h-100">
     <v-card-title class="d-flex align-stretch justify-space-between pa-0">
       <v-text-field
         v-model="name"
@@ -46,7 +46,7 @@ import { getTags } from '@/api/post';
 
 const name = ref('')
 
-const { isFetching, data } = getTags()
+const { data } = getTags()
 
 const handleCreate = async () => {
   // const params = { name: name.value }

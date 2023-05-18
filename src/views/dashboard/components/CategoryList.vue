@@ -1,5 +1,5 @@
 <template>
-  <v-card class="bg-surface rounded-xl h-100" :loading="isFetching">
+  <v-card class="bg-surface rounded-xl h-100">
     <v-card-title class="d-flex justify-space-between align-stretch pa-0">
       <v-text-field
         v-model="name"
@@ -38,7 +38,7 @@ import { createCategory, getCategorires } from '@/api/post';
 const snackbarStore = useSnackbarStore()
 const name = ref('')
 
-const { isFetching, data, execute } = getCategorires()
+const { data, execute } = getCategorires()
 
 const handleCreate = async () => {
   const params = { name: name.value }

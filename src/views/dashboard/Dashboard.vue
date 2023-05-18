@@ -21,7 +21,7 @@
         <CategoryList />
       </v-col>
       <v-col class="h-100" cols="12" sm="6" md="6" xl="4">
-        <TagList :items="tags" />
+        <TagList />
       </v-col>
       <!-- <v-col>
         <GithubEvents />

@@ -15,18 +15,6 @@
           :dot-color="dotColor(event.type)"
           size="small"
         >
-          <!-- <div class="d-flex">
-            <strong class="me-4">5pm</strong>
-            <div>
-              <strong>New Icon</strong>
-              <div class="text-caption">
-                Mobile App
-              </div>
-            </div>
-          </div> -->
-          <!-- <template v-slot:opposite>
-            <span class="">{{ new Date(event.created_at).toLocaleString() }}</span>
-          </template> -->
           <div class="mb-1">
             <span class="text-h6 font-weight-bold">
               {{ event.user }}
@@ -39,7 +27,7 @@
           <v-card width="420">
             <v-card-subtitle class="pt-4">
               <v-chip
-                :color="getTagColor(event)"
+                :color="tagColor(event)"
                 size="small"
                 label
                 class="mr-2 font-weight-bold"
@@ -49,7 +37,7 @@
               <span class="text-body-2">{{ event.repo }}</span>
             </v-card-subtitle>
             <v-card-text>
-              <div>{{ event.content }}</div>
+              <div v-html="event.content"></div>
             </v-card-text>
           </v-card>
         </v-timeline-item>
@@ -93,21 +81,7 @@ const dotColor = computed(() => (type) => {
   }
 })
 
-const getContent = (event) => {
-  if (event.type === "PushEvent") {
-    return event.payload.commits[0].message;
-  } else if (event.type === "CreateEvent") {
-    return event.payload.ref_type;
-  } else if (event.type === "IssuesEvent") {
-    return event.payload.issue.title;
-  } else if (event.type === 'CommitCommentEvent') {
-    return event.payload.comment.body
-  } else {
-    return "";
-  }
-};
-
-const getTagColor = (event) => {
+const tagColor = computed(() => (event) => {
   if (event.type === "PushEvent") {
     return "green";
   } else if (event.type === "IssuesEvent") {
@@ -115,7 +89,51 @@ const getTagColor = (event) => {
   } else {
     return "blue";
   }
+})
+
+const getContent = (event) => {
+  if (event.type === "PushEvent") {
+    return convertToHtml(event.payload.commits[0].message);
+  } else if (event.type === "CreateEvent") {
+    return event.payload.ref_type;
+  } else if (event.type === "IssuesEvent") {
+    return event.payload.issue.title;
+  } else if (event.type === 'CommitCommentEvent') {
+    return deployContentToHtml(event.payload.comment.body)
+  } else {
+    return "";
+  }
 };
+
+const convertToHtml = (text) => {
+  const lines = text.split("\n");
+  let html = "";
+
+  lines.forEach((line) => {
+    if (line.startsWith("- ")) {
+      html += `<div><span class='mr-1'>-</span> ${line.slice(2)}</div>`;
+    } else if (line.trim() === "") {
+      html += "<br/>";
+    } else {
+      html += `<p>${line}</p>`;
+    }
+  });
+
+  return html;
+};
+
+const deployContentToHtml = (text) => {
+  const paragraph = text.split('– ./')
+  const spans = paragraph[1].split(' ')
+  let html = paragraph[0] + "<br/ >"
+
+  spans.forEach(span => {
+    html += `<p>${span}</p>`
+  })
+
+  return html
+}
+
 </script>
 
 <style lang="scss" scoped>
