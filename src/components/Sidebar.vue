@@ -1,11 +1,11 @@
 <template>
   <v-navigation-drawer
     v-model="configureStore.sidebarVisible"
-    theme="darkTheme"
-    color="#1C2536"
+    :theme="navMode === 'evident' && 'darkTheme'"
+    :color="navColor"
     class="px-2"
     width="280"
-    style="border: 0"
+    :style="[navMode === 'evident' ? 'border: 0' : '']"
   >
     <v-list class="pt-4">
       <v-list-item
@@ -44,7 +44,7 @@
 </template>
 
 <script setup name="Sidebar">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router'
 
 import config from '@/config';
@@ -52,6 +52,14 @@ import { useConfigureStore } from '@/store/configure'
 
 const route = useRoute()
 const configureStore = useConfigureStore()
+const navMode = computed(() => configureStore.navColor)
+
+const navColor = computed(() => {
+  // const mode = configureStore.navColor
+  if (navMode.value === 'evident') return '#1C2536'
+  else if (navMode.value === 'discrete') return 'border'
+  else return 'background'
+})
 
 const sidebarItem = ref(config.menu);
 </script>

@@ -39,6 +39,22 @@
           </div>
         </div>
         <div class="mt-8">
+          <div class="text-subtitle-2 text-text">NAV COLOR</div>
+          <div>
+            <v-chip-group selected-class="checked" v-model="navColor">
+              <v-chip value="blendIn">
+                Blend-In
+              </v-chip>
+              <v-chip value="discrete">
+                Discrete
+              </v-chip>
+              <v-chip value="evident">
+                Evident
+              </v-chip>
+            </v-chip-group>
+          </div>
+        </div>
+        <div class="mt-8">
           <div class="text-subtitle-2 text-text">CONTENT</div>
           <div>
             <v-item-group v-model="contentMode" selected-class="checked">
@@ -82,15 +98,13 @@ const configureStore = useConfigureStore()
 const drawer = ref(null)
 const themeMode = ref(configureStore.theme)
 const contentMode = ref(configureStore.content)
+const navColor = ref(configureStore.navColor)
 
-// watch(themeMode, (val) => {
-//   theme.global.name.value = val
-//   configureStore.theme = val
-// })
 watchEffect(() => {
   theme.global.name.value = themeMode.value
   configureStore.theme = themeMode.value
   configureStore.content = contentMode.value
+  configureStore.navColor = navColor.value
 })
 </script>
 
