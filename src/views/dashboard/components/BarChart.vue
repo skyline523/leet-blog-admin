@@ -1,5 +1,5 @@
 <template>
-  <v-card class="w-100 h-100 rounded-xl">
+  <v-card class="w-100 rounded-xl" style="height: 400px">
     <div ref="chartRef" style="width: 100%; height: 100%"></div>
   </v-card>
 </template>
