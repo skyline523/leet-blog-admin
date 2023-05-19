@@ -1,11 +1,11 @@
 import React from 'react'
 import { Sandpack } from '@codesandbox/sandpack-react'
-import '@/styles/react.css'
 
 const CodeSandbox = ({ themeMode }) => {
   return (
     <Sandpack
       template="react"
+      className="sandbox"
       theme={themeMode === 'lightTheme' ? 'light' : 'dark'}
       options={{
         showTabs: true,

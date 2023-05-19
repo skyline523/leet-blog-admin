@@ -1,5 +1,5 @@
 <template>
-  <div class="py-4" color="background" ref="sandbox" style="height: calc(100%)">
+  <div class="py-4 sandbox-wrapper" color="background" ref="sandbox" style="height: calc(100%)">
     <div class="mb-4 d-flex justify-space-between">
       <v-btn>Toggle Language</v-btn>
       <v-btn
@@ -52,5 +52,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.sandbox-wrapper {
+  :deep(.sp-wrapper) {
+    height: calc(100% - 72px);
+    .sp-layout {
+      height: 100%;
+    }
+  }
+}
 </style>
