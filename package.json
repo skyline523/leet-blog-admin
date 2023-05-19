@@ -8,6 +8,7 @@
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@codesandbox/sandpack-react": "^2.6.4",
     "@mdi/font": "7.0.96",
     "@tinymce/tinymce-vue": "^5",
     "@tiptap/extension-code-block-lowlight": "^2.0.3",
@@ -22,14 +23,19 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.23",
     "pinia-plugin-persist": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "roboto-fontface": "*",
+    "veaury": "^2.3.12",
     "vue": "^3.2.38",
     "vue-router": "^4.0.0",
     "vuetify": "^3.0.0",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
     "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
     "sass": "^1.62.0",
