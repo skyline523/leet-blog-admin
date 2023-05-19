@@ -13,6 +13,16 @@ export default [
     ]
   },
   {
+    text: '',
+    items: [
+      {
+        name: 'Playground',
+        link: '/playground',
+        icon: 'mdi-semantic-web'
+      }
+    ]
+  },
+  {
     text: 'BLOG',
     items: blogMenu
   },

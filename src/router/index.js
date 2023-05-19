@@ -26,11 +26,20 @@ const routes = [
       layout: 'home'
     }
   },
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   name: 'Error',
-  //   component: () => import('@/views/errors/NotFound.vue')
-  // },
+  {
+    path: '/playground',
+    name: 'Playground',
+    component: () => import('@/views/playground/Playground.vue'),
+    meta: {
+      isAuth: true,
+      layout: 'home'
+    }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'Error',
+    component: () => import('@/views/errors/NotFound.vue')
+  },
   ...authRoutes,
   ...blogRoutes,
   ...chatRoutes
