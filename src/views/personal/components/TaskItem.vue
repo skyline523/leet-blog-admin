@@ -9,7 +9,7 @@
         variant="text"
         density="comfortable"
         :icon="starred ? 'mdi-star' : 'mdi-star-outline'"
-        :color="starred && 'amber'"
+        :color="starred ? 'amber' : ''"
         @click="starred = !starred"
       ></v-btn>
       <v-btn
@@ -17,7 +17,7 @@
         variant="text"
         density="comfortable"
         :icon="important ? 'mdi-label-variant' : 'mdi-label-variant-outline'"
-        :color="important && 'amber'"
+        :color="important ? 'amber' : ''"
         @click="important = !important"
       ></v-btn>
       <v-avatar class="mx-2">
