@@ -1,5 +1,6 @@
 import blogMenu from './menus/blog'
 import chatMenu from './menus/chat'
+import personalMenu from './menus/personal'
 
 export default [
   {
@@ -29,5 +30,9 @@ export default [
   {
     text: 'CHAT AI',
     items: chatMenu
+  },
+  {
+    text: 'Personal',
+    items: personalMenu
   }
 ]

@@ -5,6 +5,7 @@ import { useUserStore } from '@/store/user'
 import authRoutes from './auth'
 import blogRoutes from './blog'
 import chatRoutes from './chat'
+import personalRoutes from './personal'
 
 import 'nprogress/nprogress.css'
 
@@ -42,7 +43,8 @@ const routes = [
   },
   ...authRoutes,
   ...blogRoutes,
-  ...chatRoutes
+  ...chatRoutes,
+  ...personalRoutes
 ]
 
 const router = createRouter({

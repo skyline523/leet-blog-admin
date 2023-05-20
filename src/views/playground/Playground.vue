@@ -1,10 +1,18 @@
 <template>
   <div class="py-4 sandbox-wrapper" color="background" ref="sandbox" style="height: calc(100%)">
-    <div class="mb-4 d-flex justify-space-between">
-      <v-btn>Toggle Language</v-btn>
+    <div class="mb-4 d-flex justify-space-between align-center">
+      <v-select
+        v-model="language"
+        :items="['Vue3', 'Vue2']"
+        variant="solo"
+        hide-details
+        density="compact"
+        style="max-width: 100px"
+      ></v-select>
       <v-btn
         @click="toggle"
         color="primary"
+        density="comfortable"
         :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'"
       ></v-btn>
     </div>
@@ -28,6 +36,7 @@ export default {
   },
   data() {
     return {
+      language: 'Vue3'
     }
   },
   setup() {
