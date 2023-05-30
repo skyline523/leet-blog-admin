@@ -20,5 +20,16 @@ export default [
       title: 'To Do',
       category: 'Personal'
     }
+  },
+  {
+    path: '/personal/unsplash',
+    name: 'Unsplash',
+    component: () => import('@/views/personal/Unsplash.vue'),
+    meta: {
+      isAuth: true,
+      layout: 'default',
+      title: 'Unsplash',
+      category: 'Personal'
+    }
   }
 ]

@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script setup name="TabPortfolio">
+<script setup name="TabGallery">
 
 </script>
 

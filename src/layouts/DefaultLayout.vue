@@ -7,7 +7,7 @@
         <v-container fluid class="pa-0">
           <Appbar />
           <div
-            class="px-4 pb-6 common-layout"
+            class="px-4 py-6 common-layout"
             :class="{'compact-layout': configureStore.content === 'compact'}"
           >
             <PageTitle />

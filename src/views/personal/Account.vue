@@ -43,8 +43,8 @@
       <v-window-item value="friends" class="pa-3">
         <TabFriends />
       </v-window-item>
-      <v-window-item value="portfolio" class="pa-3">
-        <TabPortfolio />
+      <v-window-item value="gallery" class="pa-3">
+        <TabGallery />
       </v-window-item>
     </v-window>
   </v-sheet>
@@ -55,7 +55,7 @@ import { ref, onMounted } from 'vue'
 
 import TabProfile from './components/TabProfile.vue'
 import TabFriends from './components/TabFriends.vue'
-import TabPortfolio from './components/TabPortfolio.vue'
+import TabGallery from './components/TabGallery.vue'
 
 const tabOptions = [
   {
@@ -69,8 +69,8 @@ const tabOptions = [
     icon: 'mdi-account-group'
   },
   {
-    name: 'Portfolio',
-    value: 'portfolio',
+    name: 'Gallery',
+    value: 'gallery',
     icon: 'mdi-image-filter-hdr'
   }
 ]

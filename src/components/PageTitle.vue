@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-h4 mt-3">{{ title }}</h1>
+  <h1 class="text-h4">{{ title }}</h1>
 </template>
 
 <script setup name="PageTitle">

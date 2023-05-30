@@ -8,5 +8,10 @@ export default [
     name: 'To Do',
     link: '/personal/todo',
     icon: 'mdi-format-list-checkbox'
+  },
+  {
+    name: 'Unplash',
+    link: '/personal/unsplash',
+    icon: 'mdi-image-filter-hdr'
   }
 ]
