@@ -4,7 +4,7 @@
       <v-card
         v-bind="props"
         class="rounded-lg"
-        style="height: 280px"
+        style="position: relative; height: 280px"
       >
         <div class="rounded-lg" >
           <v-img
@@ -32,18 +32,38 @@
         <v-overlay
           :model-value="isHovering"
           contained
-          class="align-center justify-center"
+          min-width="100%"
+          class="w-100 align-center justify-center"
         >
-          <div style="position: relative; height: 280px" class="w-100 px-6 text-center d-flex flex-column align-center justify-center">
-            <div style="position: absolute; top: 8px; right: 8px;">
+          <div style="height: 280px" class="px-2 py-2 text-center d-flex flex-column align-center justify-space-between">
+            <div class="w-100 d-flex align-center justify-space-between">
+              <div></div>
               <v-btn prepend-icon="mdi-heart-outline" density="comfortable">{{ photo.likes }}</v-btn>
             </div>
 
-            <p class="mb-2 line-clamp-2 text-background">{{ photo.description || photo.alt_description }}</p>
-            <v-btn variant="flat">See More Info</v-btn>
+            <div class="px-6">
+              <p class="mb-2 line-clamp-2 text-background">{{ photo.description || photo.alt_description }}</p>
+              <v-btn variant="flat">See More Info</v-btn>
+            </div>
 
-            <div style="position: absolute; bottom: 8px;" class="d-flex align-center justify-center">
-              <v-btn icon="mdi-download" density="comfortable"></v-btn>
+            <div class="w-100 d-flex align-center justify-end">
+              <v-tooltip
+                text="Download"
+                location="bottom"
+              >
+                <template v-slot:activator="{ props }">
+                  <v-btn v-bind="props" icon="mdi-download" density="comfortable" class="mx-1" @click="onDownloadPhoto">
+                  </v-btn>
+                </template>
+              </v-tooltip>
+              <v-tooltip
+                text="Copy link"
+                location="bottom"
+              >
+                <template v-slot:activator="{ props }">
+                  <v-btn v-bind="props" icon="mdi-link" density="comfortable" class="mx-1" @click="onCopyPhotoLink"></v-btn>
+                </template>
+              </v-tooltip>
             </div>
           </div>
         </v-overlay>
@@ -53,12 +73,47 @@
 </template>
 
 <script setup name="PhotoItem">
-defineProps({
+import { toRefs } from 'vue'
+import { useClipboard } from '@vueuse/core'
+
+import { useSnackbarStore } from '@/store/snackbar'
+
+const props = defineProps({
   photo: {
     type: Object,
     required: true
   }
 })
+const { photo } = toRefs(props)
+
+const snackbarStore = useSnackbarStore()
+
+const { copy } = useClipboard()
+
+const onDownloadPhoto = () => {
+  const a = document.createElement("a");
+  a.href = photo.value.links.download + "&force=true";
+  a.download = photo.value.id + ".jpg";
+  a.click();
+  snackbarStore.open({
+    content: 'Downloading...',
+    color: 'blue'
+  })
+}
+
+const onCopyPhotoLink = () => {
+  // const input = document.createElement('input')
+  // const text = photo.value.urls.full
+  // input.setAttribute('value', text)
+  // document.body.appendChild(input)
+  // input.select()
+  // document.execCommand('copy')
+  copy(photo.value.urls.full)
+  snackbarStore.open({
+    content: 'Copied!',
+    color: 'blue'
+  })
+}
 </script>
 
 <style lang="scss" scoped>

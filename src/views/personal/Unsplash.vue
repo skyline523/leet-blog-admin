@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div class="d-flex justify-space-between">
+    <div class="d-flex flex-column flex-sm-row justify-space-between align-start pb-1 pb-sm-6">
       <v-text-field
         v-model="query"
         variant="outlined"
         prepend-inner-icon="mdi-magnify"
         density="compact"
+        hide-details
         placeholder="Search photos..."
-        style="max-width: 240px"
+        style="width: 240px; max-width: 240px;"
       ></v-text-field>
       <v-menu>
         <template v-slot:activator="{ props }">
-          <v-btn v-bind="props" variant="text" class="rounded-lg">
+          <v-btn v-bind="props" variant="text" class="rounded-lg mt-2 mt-sm-0">
             Sorted By: <span class="text-capitalize">{{ sort }}</span>
           </v-btn>
         </template>
@@ -31,11 +32,28 @@
       </v-menu>
     </div>
 
+    <v-row v-if="isFetching">
+      <v-col
+        v-for="index in skeletonCount"
+        :key="index"
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+      >
+        <v-skeleton-loader
+          type="image, article"
+          height="280"
+        ></v-skeleton-loader>
+      </v-col>
+    </v-row>
     <v-row v-if="data">
       <v-col
         v-for="photo in data"
         :key="photo.id"
-        cols="4"
+        cols="12"
+        sm="6"
+        md="4"
       >
         <PhotoItem
           :photo="photo"
@@ -56,9 +74,9 @@ const sort = ref('latest')
 const sortOptions = ref(['latest', 'oldest', 'popular'])
 const pageIndex = ref(1)
 const pageSize = ref(15)
+const skeletonCount = ref(9)
 
-const { data } = getPhotos(pageIndex.value, pageSize.value)
-console.log(data)
+const { isFetching, data } = getPhotos(pageIndex.value, pageSize.value, sort.value)
 </script>
 
 <style lang="scss" scoped>

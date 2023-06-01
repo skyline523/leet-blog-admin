@@ -1,11 +1,12 @@
 import { createFetch } from '@vueuse/core'
+
 import { useSnackbarStore } from '@/store/snackbar'
 
 const snackbarStore = useSnackbarStore()
 
 const ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY
 
-const useUnsplashApi = createFetch({
+export const useUnsplashApi = createFetch({
   baseUrl: 'https://api.unsplash.com',
   options: {
     immediate: true,
@@ -37,14 +38,14 @@ const useUnsplashApi = createFetch({
 })
 
 // Get photo list
-export const getPhotos = (pageIndex = 1, pageSize = 10, order = 'latest') => {
+export const getPhotos = (pageIndex, pageSize, order) => {
   return useUnsplashApi(
     `/photos?page=${pageIndex}&per_page=${pageSize}&order_by=${order}`
   ).json()
 }
 
 // Get collection list
-export const getCollection = (pageIndex = 1, pageSize = 10) => {
+export const getCollection = (pageIndex, pageSize) => {
   return useUnsplashApi(`/photos?page=${pageIndex}&per_page=${pageSize}`).json()
 }
 
