@@ -9,8 +9,10 @@
         hide-details
         placeholder="Search photos..."
         style="width: 240px; max-width: 240px;"
+        @change="onSearch"
       ></v-text-field>
-      <v-menu>
+      <div v-if="isSearch"></div>
+      <v-menu v-else>
         <template v-slot:activator="{ props }">
           <v-btn v-bind="props" variant="text" class="rounded-lg mt-2 mt-sm-0">
             Sorted By: <span class="text-capitalize">{{ sort }}</span>
@@ -24,7 +26,7 @@
             :active="item === sort"
             value="latest"
             class="rounded-lg ma-2 px-2"
-            @click="sort = item"
+            @click="onChangeSort(item)"
           >
             <v-list-item-title class="text-capitalize">{{ item }}</v-list-item-title>
           </v-list-item>
@@ -32,14 +34,13 @@
       </v-menu>
     </div>
 
-    <v-row v-if="isFetching">
+    <v-row v-if="isLoading">
       <v-col
         v-for="index in skeletonCount"
         :key="index"
         cols="12"
         sm="6"
         md="4"
-        lg="3"
       >
         <v-skeleton-loader
           type="image, article"
@@ -47,9 +48,9 @@
         ></v-skeleton-loader>
       </v-col>
     </v-row>
-    <v-row v-if="data">
+    <v-row v-else>
       <v-col
-        v-for="photo in data"
+        v-for="photo in photos"
         :key="photo.id"
         cols="12"
         sm="6"
@@ -59,24 +60,80 @@
           :photo="photo"
         />
       </v-col>
+      <div class="w-100 py-8 d-flex justify-center">
+        <v-btn color="primary" @click="loadMore" :loading="isMore">Load More</v-btn>
+      </div>
     </v-row>
   </div>
 </template>
 
 <script setup name="Unsplash">
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
-import { getPhotos } from '@/api/unsplash'
+import { getPhotos, getSearch } from '@/api/unsplash'
 import PhotoItem from './components/PhotoItem.vue'
 
 const query = ref('')
 const sort = ref('latest')
 const sortOptions = ref(['latest', 'oldest', 'popular'])
 const pageIndex = ref(1)
-const pageSize = ref(15)
+const pageSize = ref(30)
 const skeletonCount = ref(9)
+const photos = ref([])
+const isLoading = ref(false)
+const isMore = ref(false) // 是否正在加载更多
+const isSearch = ref(false) // 是否为搜索结果
 
-const { isFetching, data } = getPhotos(pageIndex.value, pageSize.value, sort.value)
+onMounted(() => {
+  getList()
+})
+
+watch(query, () => {
+  if (!query.value) {
+    isSearch.value = false
+    getList()
+  }
+})
+
+const getList = async () => {
+  isLoading.value = true
+  const res = await getPhotos(pageIndex.value, pageSize.value, sort.value)
+  isLoading.value = false
+
+  if (res.status === 200) {
+    photos.value = res.data
+  }
+}
+
+const onSearch = async () => {
+  if (query.value) {
+    isSearch.value = true
+    isLoading.value = true
+    pageIndex.value = 1
+    const res = await getSearch(pageIndex.value, pageSize.value, sort.value, query.value)
+    isLoading.value = false
+
+    if (res.status === 200) {
+      photos.value = res.data.photos.results
+    }
+  }
+}
+
+const onChangeSort = (item) => {
+  sort.value = item
+  getList()
+}
+
+const loadMore = async () => {
+  isMore.value = true
+  pageIndex.value++
+  const res = await getPhotos(pageIndex.value, pageSize.value, sort.value)
+
+  if (res.status === 200) {
+    photos.value = [...photos.value, ...res.data]
+    isMore.value = false
+  }
+}
 </script>
 
 <style lang="scss" scoped>

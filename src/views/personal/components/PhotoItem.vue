@@ -33,12 +33,19 @@
           :model-value="isHovering"
           contained
           min-width="100%"
+          open-delay="100"
           class="w-100 align-center justify-center"
         >
           <div style="height: 280px" class="px-2 py-2 text-center d-flex flex-column align-center justify-space-between">
             <div class="w-100 d-flex align-center justify-space-between">
               <div></div>
-              <v-btn prepend-icon="mdi-heart-outline" density="comfortable">{{ photo.likes }}</v-btn>
+              <v-btn
+                prepend-icon="mdi-heart-outline"
+                density="comfortable"
+              >
+                <!-- @click="photo.liked_by_user ? onUnlikePhoto() : onLikePhoto()" -->
+                {{ photo.likes }}
+              </v-btn>
             </div>
 
             <div class="px-6">
@@ -77,6 +84,7 @@ import { toRefs } from 'vue'
 import { useClipboard } from '@vueuse/core'
 
 import { useSnackbarStore } from '@/store/snackbar'
+// import { useUserStore } from '@/store/user'
 
 const props = defineProps({
   photo: {
@@ -87,8 +95,9 @@ const props = defineProps({
 const { photo } = toRefs(props)
 
 const snackbarStore = useSnackbarStore()
+// const userStore = useUserStore()
 
-const { copy } = useClipboard()
+const { copy } = useClipboard({ legacy: true })
 
 const onDownloadPhoto = () => {
   const a = document.createElement("a");
@@ -102,22 +111,26 @@ const onDownloadPhoto = () => {
 }
 
 const onCopyPhotoLink = () => {
-  // const input = document.createElement('input')
-  // const text = photo.value.urls.full
-  // input.setAttribute('value', text)
-  // document.body.appendChild(input)
-  // input.select()
-  // document.execCommand('copy')
   copy(photo.value.urls.full)
   snackbarStore.open({
     content: 'Copied!',
     color: 'blue'
   })
 }
+
+// const onLikePhoto = async () => {
+//   userStore.addUnsplashLike(photo.value)
+// }
+
+// const onUnlikePhoto = async () => {
+//   userStore.removeUnsplashLike(photo.value)
+
+// }
 </script>
 
 <style lang="scss" scoped>
 .transition {
-  transition: 0.3s
+  transition: 0.3s;
+  transition-delay: 0.1s;
 }
 </style>

@@ -12,6 +12,7 @@ export const useUserStore = defineStore('user', {
     token: undefined,
     userInfo: null,
     menus: [],
+    unsplashLike: [],
     sessionTimeout: false, // session过期时间
     lastUpdateTime: 0 // 最后请求时间
   }),
@@ -25,7 +26,10 @@ export const useUserStore = defineStore('user', {
   },
   persist: {
     enabled: true,
-    strategies: [{ storage: sessionStorage, paths: ['userInfo', 'token'] }]
+    strategies: [
+      { storage: sessionStorage, paths: ['userInfo', 'token'] },
+      { storage: localStorage, path: ['unsplashLike'] }
+    ]
   },
   actions: {
     setToken(info) {
@@ -35,6 +39,12 @@ export const useUserStore = defineStore('user', {
     setUserInfo(info) {
       this.userInfo = info
       this.lastUpdateTime = new Date().getTime()
+    },
+    addUnsplashLike(info) {
+      this.unsplashLike.push(info)
+    },
+    removeUnsplashLike(info) {
+      this.unsplashLike.filter((item) => item.id !== info.id)
     },
     setSessionTimeout(flag) {
       this.sessionTimeout = flag
@@ -47,10 +57,10 @@ export const useUserStore = defineStore('user', {
       sessionStorage.clear()
     },
     async login(payload) {
-      const { data } = await login(payload)
+      const res = await login(payload)
 
-      if (data.value.code === 200) {
-        this.setToken(data.value.data.token)
+      if (res.code === 200) {
+        this.setToken(res.data.token)
         snackbarStore.open({
           content: '登录成功',
           color: 'blue'
@@ -63,10 +73,10 @@ export const useUserStore = defineStore('user', {
     async afterLoginAction() {
       if (!this.token) return null
 
-      const { data } = await getUserInfo()
+      const res = await getUserInfo()
 
-      if (data.value.code === 200) {
-        this.setUserInfo(data.value.data)
+      if (res.code === 200) {
+        this.setUserInfo(res.data)
 
         // 是否跳转：从登录页进入需要跳转；刷新页面不需要跳转
         // if (isGoto) {

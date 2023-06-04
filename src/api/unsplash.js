@@ -1,60 +1,45 @@
-import { createFetch } from '@vueuse/core'
+import axios from 'axios'
 
-import { useSnackbarStore } from '@/store/snackbar'
+// import { useSnackbarStore } from '@/store/snackbar'
 
-const snackbarStore = useSnackbarStore()
+// const snackbarStore = useSnackbarStore()
 
 const ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY
 
-export const useUnsplashApi = createFetch({
-  baseUrl: 'https://api.unsplash.com',
-  options: {
-    immediate: true,
-    timeout: 10000,
-    beforeFetch({ options }) {
-      options.headers.Authorization = `Client-ID ${ACCESS_KEY}`
-
-      return { options }
-    },
-    afterFetch({ data, response }) {
-      if (response.status !== 200) {
-        snackbarStore.open({
-          content: data.message,
-          color: 'red'
-        })
-      }
-      return { data, response }
-    },
-    onFetchError({ data, error }) {
-      console.log(error)
-      snackbarStore.open({
-        content: error,
-        color: 'red'
-      })
-
-      return { data, error }
-    }
+const baseURL = 'https://api.unsplash.com'
+const config = {
+  headers: {
+    Authorization: `Client-ID ${ACCESS_KEY}`
   }
-})
+}
 
 // Get photo list
 export const getPhotos = (pageIndex, pageSize, order) => {
-  return useUnsplashApi(
-    `/photos?page=${pageIndex}&per_page=${pageSize}&order_by=${order}`
-  ).json()
+  return axios.get(
+    `${baseURL}/photos?page=${pageIndex}&per_page=${pageSize}&order_by=${order}`,
+    config
+  )
+}
+
+// Search list
+export const getSearch = (pageIndex, pageSize, order, query) => {
+  return axios.get(
+    `${baseURL}/search?page=${pageIndex}&per_page=${pageSize}&order_by=${order}&query=${query}`,
+    config
+  )
 }
 
 // Get collection list
-export const getCollection = (pageIndex, pageSize) => {
-  return useUnsplashApi(`/photos?page=${pageIndex}&per_page=${pageSize}`).json()
-}
+// export const getCollection = (pageIndex, pageSize) => {
+//   return useUnsplashApi(`/photos?page=${pageIndex}&per_page=${pageSize}`).json()
+// }
 
-// like photo
+// Like photo
 export const likePhoto = (id) => {
-  return useUnsplashApi(`/photos/${id}/like`).post().json()
+  return axios.post(`${baseURL}/photos/${id}/like`, {}, config)
 }
 
-// unlike photo
+// Unlike photo
 export const unlikePhoto = (id) => {
-  return useUnsplashApi(`/photos/${id}/like`).delete().json()
+  return axios.delete(`${baseURL}/photos/${id}/like`, config)
 }

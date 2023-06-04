@@ -1,13 +1,13 @@
-import { useRequest } from '@/hooks/useRequest'
+import instance from '@/utils/request'
 
-export const login = async (data) => {
-  return await useRequest('/auth/signin').post(data).json()
+export const login = (data) => {
+  return instance.post('/auth/signin', data)
 }
 
-export const register = async (data) => {
-  return await useRequest('/auth/signup').post(data).json()
+export const register = (data) => {
+  return instance.post('/auth/signup', data)
 }
 
-export const getUserInfo = async () => {
-  return await useRequest('/auth/userInfo').json()
+export const getUserInfo = () => {
+  return instance.post('/auth/userInfo')
 }

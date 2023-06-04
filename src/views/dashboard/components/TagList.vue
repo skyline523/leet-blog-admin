@@ -14,9 +14,9 @@
     </v-card-title>
     <v-divider></v-divider>
 
-    <v-card-text class="px-2 py-2 list" v-if="data">
+    <v-card-text class="px-2 py-2 list" v-if="!isLoading">
       <v-chip
-        v-for="item in data.result"
+        v-for="item in tags"
         :key="item.name"
         closable
         class="ma-1"
@@ -30,14 +30,14 @@
     <v-skeleton-loader
       v-for="index in 7"
       :key="index"
-      :loading="!data"
+      :loading="isLoading"
       type="list-item"
     ></v-skeleton-loader>
   </v-card>
 </template>
 
 <script setup name="TagList">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 // import { useSnackbarStore } from '@/store/snackbar';
 import { getTags } from '@/api/post';
@@ -45,8 +45,22 @@ import { getTags } from '@/api/post';
 // const snackbarStore = useSnackbarStore()
 
 const name = ref('')
+const tags = ref([])
+const isLoading = ref(false)
 
-const { data } = getTags()
+onMounted(() => {
+  getList()
+})
+
+const getList = async () => {
+  isLoading.value = true
+  const res = await getTags()
+  isLoading.value = false
+
+  if (res.code === 200) {
+    tags.value = res.data.result
+  }
+}
 
 const handleCreate = async () => {
   // const params = { name: name.value }
