@@ -1,6 +1,6 @@
 <template>
   <v-card class="rounded-xl d-flex flex-column justify-center align-center pt-8 pb-6" style="position: relative;">
-    <v-avatar size="68">
+    <v-avatar size="68" rounded="rounded-circle">
       <v-img
         :src="item.avatar"
         :lazy-src="item.avatar"

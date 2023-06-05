@@ -58,17 +58,37 @@
       >
         <PhotoItem
           :photo="photo"
+          @confirm="authDialog = true"
         />
       </v-col>
       <div class="w-100 py-8 d-flex justify-center">
         <v-btn color="primary" @click="loadMore" :loading="isMore">Load More</v-btn>
       </div>
     </v-row>
+
+    <Teleport to="body">
+      <v-dialog
+        v-model="authDialog"
+        width="auto"
+      >
+        <v-card>
+          <v-card-text style="height: 120px; justify-content: center !important" class="d-flex flex-column">
+            <p class="text-h6 text-center">You have not authorized Unsplash</p>
+            <p class="text-subtitle-1 text-center">You will be redirected to the authorization page after clicking confirm</p>
+          </v-card-text>
+          <v-card-actions class="d-flex justify-end px-4">
+            <v-btn @click="authDialog = false">Cancel</v-btn>
+            <v-btn color="primary" @click="onRedirectAuth">Confirm</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </Teleport>
   </div>
 </template>
 
 <script setup name="Unsplash">
 import { ref, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { getPhotos, getSearch } from '@/api/unsplash'
 import PhotoItem from './components/PhotoItem.vue'
@@ -77,12 +97,15 @@ const query = ref('')
 const sort = ref('latest')
 const sortOptions = ref(['latest', 'oldest', 'popular'])
 const pageIndex = ref(1)
-const pageSize = ref(30)
+const pageSize = ref(18)
 const skeletonCount = ref(9)
 const photos = ref([])
 const isLoading = ref(false)
 const isMore = ref(false) // 是否正在加载更多
 const isSearch = ref(false) // 是否为搜索结果
+const authDialog = ref(false)
+
+const router = useRouter()
 
 onMounted(() => {
   getList()
@@ -94,6 +117,10 @@ watch(query, () => {
     getList()
   }
 })
+
+const onRedirectAuth = () => {
+  router.push('/auth/unsplash')
+}
 
 const getList = async () => {
   isLoading.value = true

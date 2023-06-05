@@ -1,15 +1,17 @@
 import axios from 'axios'
 
-// import { useSnackbarStore } from '@/store/snackbar'
+import { useUserStore } from '@/store/user'
 
-// const snackbarStore = useSnackbarStore()
+const userStore = useUserStore()
 
 const ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY
 
 const baseURL = 'https://api.unsplash.com'
 const config = {
   headers: {
-    Authorization: `Client-ID ${ACCESS_KEY}`
+    Authorization: userStore.unsplashToken
+      ? `Bearer ${userStore.unsplashToken}`
+      : `Client-ID ${ACCESS_KEY}`
   }
 }
 
@@ -29,10 +31,13 @@ export const getSearch = (pageIndex, pageSize, order, query) => {
   )
 }
 
-// Get collection list
-// export const getCollection = (pageIndex, pageSize) => {
-//   return useUnsplashApi(`/photos?page=${pageIndex}&per_page=${pageSize}`).json()
-// }
+// get user liked photos
+export const getUserLikedPhotos = (pageIndex, pageSize) => {
+  return axios.get(
+    `${baseURL}/users/skyline523/likes?page=${pageIndex}&per_page=${pageSize}`,
+    config
+  )
+}
 
 // Like photo
 export const likePhoto = (id) => {

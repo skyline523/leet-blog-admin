@@ -10,9 +10,9 @@ export const useUserStore = defineStore('user', {
   id: 'user',
   state: () => ({
     token: undefined,
+    unsplashToken: undefined,
     userInfo: null,
     menus: [],
-    unsplashLike: [],
     sessionTimeout: false, // session过期时间
     lastUpdateTime: 0 // 最后请求时间
   }),
@@ -28,7 +28,7 @@ export const useUserStore = defineStore('user', {
     enabled: true,
     strategies: [
       { storage: sessionStorage, paths: ['userInfo', 'token'] },
-      { storage: localStorage, path: ['unsplashLike'] }
+      { storage: localStorage, path: ['unsplashToken'] }
     ]
   },
   actions: {
@@ -36,15 +36,12 @@ export const useUserStore = defineStore('user', {
       this.token = info || ''
       // sessionStorage.setItem('TOKEN_KEY', info)
     },
+    setUnsplashToken(info) {
+      this.unsplashToken = info || ''
+    },
     setUserInfo(info) {
       this.userInfo = info
       this.lastUpdateTime = new Date().getTime()
-    },
-    addUnsplashLike(info) {
-      this.unsplashLike.push(info)
-    },
-    removeUnsplashLike(info) {
-      this.unsplashLike.filter((item) => item.id !== info.id)
     },
     setSessionTimeout(flag) {
       this.sessionTimeout = flag
@@ -52,6 +49,7 @@ export const useUserStore = defineStore('user', {
     resetState() {
       this.token = ''
       this.userInfo = null
+      this.unsplashToken = ''
       this.menus = []
       this.sessionTimeout = false
       sessionStorage.clear()
