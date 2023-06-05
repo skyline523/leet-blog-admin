@@ -22,7 +22,7 @@ onMounted(() => {
 
     const ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY
     const SECRET_KEY = import.meta.env.VITE_UNSPLASH_SECRET_KEY
-    const redirect_uri = 'http://localhost:3000/auth/unsplash-redirect' // 本地测试uri
+    const redirect_uri = import.meta.env.VITE_UNSPLASH_REDIRECT_URI
     const tokenUrl = 'https://unsplash.com/oauth/token'
 
     axios.post(tokenUrl, {
