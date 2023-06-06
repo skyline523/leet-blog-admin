@@ -49,7 +49,7 @@ export const useUserStore = defineStore('user', {
     resetState() {
       this.token = ''
       this.userInfo = null
-      this.unsplashToken = ''
+      // this.unsplashToken = ''
       this.menus = []
       this.sessionTimeout = false
       sessionStorage.clear()

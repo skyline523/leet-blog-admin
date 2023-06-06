@@ -24,9 +24,9 @@ export const getPhotos = (pageIndex, pageSize, order) => {
 }
 
 // Search list
-export const getSearch = (pageIndex, pageSize, order, query) => {
+export const getSearch = (pageIndex, pageSize, query) => {
   return axios.get(
-    `${baseURL}/search?page=${pageIndex}&per_page=${pageSize}&order_by=${order}&query=${query}`,
+    `${baseURL}/search?page=${pageIndex}&per_page=${pageSize}&query=${query}`,
     config
   )
 }

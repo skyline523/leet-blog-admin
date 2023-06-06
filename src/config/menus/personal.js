@@ -10,7 +10,7 @@ export default [
     icon: 'mdi-format-list-checkbox'
   },
   {
-    name: 'Unplash',
+    name: 'Unsplash',
     link: '/personal/unsplash',
     icon: 'mdi-image-filter-hdr'
   }

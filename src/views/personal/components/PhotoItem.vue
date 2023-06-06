@@ -27,9 +27,52 @@
                 ></v-progress-circular>
               </v-row>
             </template>
+            <v-card class="card h-100">
+              <div class="h-100 px-2 py-2 text-center d-flex flex-column align-center justify-space-between">
+                <div class="w-100 d-flex align-center justify-space-between">
+                  <div></div>
+                  <v-btn
+                    prepend-icon="mdi-heart-outline"
+                    density="comfortable"
+                    @click="isLike ? onUnlikePhoto() : onLikePhoto()"
+                  >
+                    <template v-slot:prepend>
+                      <v-icon v-if="isLike" color="error">mdi-heart</v-icon>
+                      <v-icon v-else>mdi-heart-outline</v-icon>
+                    </template>
+                    {{ likes }}
+                  </v-btn>
+                </div>
+
+                <div class="px-6">
+                  <p class="mb-2 line-clamp-2 text-white">{{ photo.description || photo.alt_description }}</p>
+                  <v-btn variant="flat">See More Info</v-btn>
+                </div>
+
+                <div class="w-100 d-flex align-center justify-end">
+                  <v-tooltip
+                    text="Download"
+                    location="bottom"
+                  >
+                    <template v-slot:activator="{ props }">
+                      <v-btn v-bind="props" icon="mdi-download" density="comfortable" class="mx-1" @click="onDownloadPhoto">
+                      </v-btn>
+                    </template>
+                  </v-tooltip>
+                  <v-tooltip
+                    text="Copy link"
+                    location="bottom"
+                  >
+                    <template v-slot:activator="{ props }">
+                      <v-btn v-bind="props" icon="mdi-link" density="comfortable" class="mx-1" @click="onCopyPhotoLink"></v-btn>
+                    </template>
+                  </v-tooltip>
+                </div>
+              </div>
+            </v-card>
           </v-img>
         </div>
-        <v-overlay
+        <!-- <v-overlay
           :model-value="isHovering"
           contained
           min-width="100%"
@@ -76,7 +119,7 @@
               </v-tooltip>
             </div>
           </div>
-        </v-overlay>
+        </v-overlay> -->
       </v-card>
     </template>
   </v-hover>
@@ -171,6 +214,15 @@ const onUnlikePhoto = async () => {
 </script>
 
 <style lang="scss" scoped>
+.card {
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+
+  &:hover {
+    opacity: 1;
+    box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 24px 0px !important;
+  }
+}
 .transition {
   transition: 0.3s;
 }

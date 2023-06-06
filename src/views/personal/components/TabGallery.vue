@@ -42,10 +42,14 @@
           @remove="onUnlike"
         />
       </v-col>
-      <div v-if="photos.length >= pageSize" class="w-100 py-8 d-flex justify-center">
+      <div v-if="photos.length >= pageSize || !noMore" class="w-100 py-8 d-flex justify-center">
         <v-btn color="primary" @click="loadMore" :loading="isMore">Load More</v-btn>
       </div>
     </v-row>
+    <v-sheet v-if="photos.length == 0" class="py-16 d-flex flex-column align-center justify-center h-100">
+      <v-img src="@/assets/empty_content.svg" width="320" height="240" style="flex: unset"></v-img>
+      <p class="mt-5 text-h5">No Photos</p>
+    </v-sheet>
   </div>
 </template>
 
@@ -62,6 +66,7 @@ const skeletonCount = ref(9)
 const photos = ref([])
 const isLoading = ref(false)
 const isMore = ref(false) // 是否正在加载更多
+const noMore = ref(false)
 
 const userStore = useUserStore()
 
@@ -76,6 +81,7 @@ const getList = async () => {
 
   if (res.status === 200) {
     photos.value = res.data
+    if (res.data.length < pageSize.value) noMore.value = true
   }
 }
 
@@ -87,6 +93,8 @@ const loadMore = async () => {
   if (res.status === 200) {
     photos.value = [...photos.value, ...res.data]
     isMore.value = false
+    if (res.data.length < pageSize.value) noMore.value = true
+
   }
 }
 

@@ -48,7 +48,7 @@
         ></v-skeleton-loader>
       </v-col>
     </v-row>
-    <v-row v-else>
+    <v-row v-else-if="photos.length > 0">
       <v-col
         v-for="photo in photos"
         :key="photo.id"
@@ -61,10 +61,14 @@
           @confirm="authDialog = true"
         />
       </v-col>
-      <div class="w-100 py-8 d-flex justify-center">
+      <div v-if="photos.length >= pageSize || !noMore" class="w-100 py-8 d-flex justify-center">
         <v-btn color="primary" @click="loadMore" :loading="isMore">Load More</v-btn>
       </div>
     </v-row>
+    <v-sheet v-else class="py-16 d-flex flex-column align-center justify-center h-100">
+      <v-img src="@/assets/empty_content.svg" width="320" height="240" style="flex: unset"></v-img>
+      <p class="mt-5 text-h5">No Photos</p>
+    </v-sheet>
 
     <Teleport to="body">
       <v-dialog
@@ -104,6 +108,7 @@ const isLoading = ref(false)
 const isMore = ref(false) // 是否正在加载更多
 const isSearch = ref(false) // 是否为搜索结果
 const authDialog = ref(false)
+const noMore = ref(false)
 
 const router = useRouter()
 
@@ -129,6 +134,7 @@ const getList = async () => {
 
   if (res.status === 200) {
     photos.value = res.data
+    if (res.data.length < pageSize.value) noMore.value = true
   }
 }
 
@@ -137,11 +143,12 @@ const onSearch = async () => {
     isSearch.value = true
     isLoading.value = true
     pageIndex.value = 1
-    const res = await getSearch(pageIndex.value, pageSize.value, sort.value, query.value)
+    const res = await getSearch(pageIndex.value, pageSize.value, query.value)
     isLoading.value = false
 
     if (res.status === 200) {
       photos.value = res.data.photos.results
+      if (res.data.photos.results.length < pageSize.value) noMore.value = true
     }
   }
 }
@@ -159,6 +166,7 @@ const loadMore = async () => {
   if (res.status === 200) {
     photos.value = [...photos.value, ...res.data]
     isMore.value = false
+    if (res.data.length < pageSize.value) noMore.value = true
   }
 }
 </script>
